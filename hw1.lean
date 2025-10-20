@@ -12,4 +12,4 @@ example : (P → Q → R) → P ∧ Q → R := by
   apply And.right at hP
   apply hPQR at hPQ
   apply hPQ at hP
-  
+  exact hP
