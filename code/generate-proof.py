@@ -38,7 +38,7 @@ def generate(input, output):
             "output": {}
         }
     
-        prompt = prompt_template.format(natural_language_statement=sample['natural_language_statement'])
+        prompt = prompt_template.format(formal_statement=sample['formal_statement'])
         messages = [{"role": "user", "content": prompt}]
 
         for model in models:
@@ -66,8 +66,8 @@ def generate(input, output):
     return results   
 
 def main():
-    input = "/home/chen_/project/LLMsLean/code/data/data.json"
-    output = "/home/chen_/project/LLMsLean/code/data/result.json"
+    input = "data/data.json"
+    output = "data/proofs.json"
     generate(input, output)
 
 if __name__ == "__main__":

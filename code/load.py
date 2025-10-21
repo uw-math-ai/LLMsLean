@@ -28,7 +28,7 @@ def load(num, path):
         json.dump(samples, f, indent=2, ensure_ascii=False)
 
 def main():
-    PATH = "/home/chen_/project/LLMsLean/code/data/data.json"
+    PATH = "data/data.json"
     load(100, PATH)
 
 if __name__ == "__main__":
