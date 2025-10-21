@@ -1,3 +1,7 @@
+############
+## Python 
+############
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -205,3 +209,25 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+############
+## Lean
+############
+
+# Created by `lake exe cache get` if no home directory is available
+.cache
+/.cache
+# `lake` stores its files here:
+.lake
+# don't include compiled lake stuff
+/lake-packages
+/build
+
+############
+## Misc
+############
+
+# macOS leaves these files everywhere:
+# really individual mac users should gitignore this in their personal global gitignore,
+# but they never do, so we just reinforce bad habits 
+.DS_Store
