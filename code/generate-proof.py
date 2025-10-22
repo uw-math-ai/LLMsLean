@@ -17,7 +17,8 @@ def generate(input, output):
         1. Only output the complete Lean 4 code.
         2. The output MUST start immediately after the ':= by' part of the theorem statement and continue until all goals are closed.
         3. Do not provide the theorem statement itself, any explanation, or any surrounding text (like "Here is the proof:").
-        4. The proof must be syntactically complete and ideally mathematically correct.
+        4. The proof must be syntactically complete and mathematically correct.
+        5. Do not output ANY Lean 3 code, only Lean 4 code
 
         Theorem Statement: {formal_statement}
 
@@ -67,7 +68,7 @@ def generate(input, output):
 
 def main():
     input = "data/data.json"
-    output = "data/proofs.json"
+    output = "data/proofs2.json"
     generate(input, output)
 
 if __name__ == "__main__":

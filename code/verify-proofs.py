@@ -46,7 +46,7 @@ def verify_single_result(result, project):
     return result
 
 def main():
-    input = "data/proofs.json"
+    input = "data/proofs2.json"
     output = "data/final_result.json"
     
     with open(input, 'r', encoding='utf-8') as f:
