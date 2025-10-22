@@ -32,7 +32,7 @@ def generate(input, output):
 
     for sample in tqdm(samples, desc="Generating Answers"):
         result = {
-            "id": sample['id'],
+            "id": sample['id'], 
             "natural_language_statement": sample['natural_language_statement'],
             "formal_statement": sample['formal_statement'],
             "output": {}

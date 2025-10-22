@@ -16,10 +16,10 @@ def verify_single_result(result, project):
             if "ERROR:" in generated_code or not generated_code:
                 result['verification'][model] = {"status": "generation_failed", "error": generated_code}
                 continue
-
-            full_code = f"import Mathlib\n\n{generated_code}"
+            generated_code = generated_code.replace("```", "")
+            theorem = result['formal_statement'].replace("sorry", "")
+            full_code = f"import Mathlib\n\n {theorem}\n{generated_code}"
             command = Command(cmd=full_code)
-
             try:
                 response = server.run(command)
                 if not isinstance(response, LeanError) and response.lean_code_is_valid():
