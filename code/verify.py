@@ -2,7 +2,7 @@ import json
 from tqdm import tqdm
 from lean_interact import LeanREPLConfig, LeanServer, Command
 from lean_interact.interface import LeanError
-from lean_interact.project import TempRequireProject
+from lean_interact import TempRequireProject
 
 def verify_single_result(result, project):
     result['verification'] = {}
@@ -46,8 +46,8 @@ def verify_single_result(result, project):
     return result
 
 def main():
-    input = "/home/chen_/project/LLMsLean/code/data/result.json"
-    output = "/home/chen_/project/LLMsLean/code/data/final_result.json"
+    input = "code/data/result.json"
+    output = "code/data/final_result.json"
     
     with open(input, 'r', encoding='utf-8') as f:
         results = json.load(f)
@@ -56,7 +56,7 @@ def main():
     project = None
     try:
         print("Setting Up Temp Project")
-        project = TempRequireProject(lean_version="v4.7.0", require="mathlib")
+        project = TempRequireProject(require="mathlib")
     except Exception as e:
         print(f"Exception: {e}")
         return

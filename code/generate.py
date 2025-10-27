@@ -65,8 +65,8 @@ def generate(input, output):
     return results   
 
 def main():
-    input = "/home/chen_/project/LLMsLean/code/data/data.json"
-    output = "/home/chen_/project/LLMsLean/code/data/result.json"
+    input = "code/data/data.json"
+    output = "code/data/result.json"
     generate(input, output)
 
 if __name__ == "__main__":
