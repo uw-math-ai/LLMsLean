@@ -1,5 +1,6 @@
 import json
 import argparse
+import os
 from tqdm import tqdm
 import litellm
 from lean_interact import LeanREPLConfig, LeanServer, Command, TempRequireProject
@@ -86,17 +87,25 @@ def run_pipeline(args):
         dataset = json.load(f)
     print(f"Loaded {len(dataset)} samples from {args.input}")
 
-    # Limit number of samples
+    # Resume mode
+    processed_ids = set()
+    all_results = []
+    if args.resume and os.path.exists(args.output):
+        with open(args.output, "r", encoding="utf-8") as f:
+            all_results = json.load(f)
+        processed_ids = {r["id"] for r in all_results}
+        print(f"🔁 Resume mode: loaded {len(processed_ids)} completed samples from {args.output}")
+
     dataset = dataset[:args.num_samples]
     print(f"Processing first {len(dataset)} samples")
 
-    # Prepare Lean project
     print("Setting up temporary Lean project (Mathlib)...")
     project = TempRequireProject(require="mathlib")
 
-    all_results = []
-
     for sample in tqdm(dataset, desc="Processing Samples"):
+        if sample["id"] in processed_ids:
+            continue
+
         record = {
             "id": sample["id"],
             "natural_language_statement": sample["natural_language_statement"],
@@ -106,16 +115,17 @@ def run_pipeline(args):
         system_prompt = args.instruction.strip()
         nl_statement = sample["natural_language_statement"]
 
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Problem: {nl_statement}\n\nLean 4 Theorem:"}
-        ]
+        prompt = system_prompt.format(natural_language_statement=nl_statement)
+        messages = [{"role": "user", "content": prompt}]
+
+        print(f"\n🧮 Processing ID: {sample['id']}")
+        print(f"📝 Natural Language Statement:\n{nl_statement}\n{'-'*80}")
 
         verification_status = "failed"
         turn = 1
 
         while turn <= args.max_turns and verification_status != "success":
-            # Generate Lean code
+            print(f"\n🔄 Turn {turn} — Generating Lean code...")
             response = generate_with_llm(
                 model=args.model,
                 messages=messages,
@@ -123,9 +133,15 @@ def run_pipeline(args):
                 max_tokens=args.max_tokens
             )
 
-            # Verify generated code
+            print(f"🤖 LLM Output:\n{response}\n")
+
             verification = verify_with_lean(response, project)
             verification_status = verification["status"]
+
+            if verification_status == "success":
+                print("✅ Lean code verified successfully!")
+            else:
+                print(f"❌ Verification failed — Error:\n{verification.get('error_message', 'Unknown error')}\n")
 
             record["conversation"].append({
                 "turn": turn,
@@ -134,7 +150,6 @@ def run_pipeline(args):
                 "verification": verification
             })
 
-            # If failed, add correction prompt
             if verification_status != "success":
                 error_msg = verification.get("error_message", "Unknown error")
                 correction_prompt = (
@@ -148,28 +163,19 @@ def run_pipeline(args):
             turn += 1
 
         record["final_status"] = verification_status
-
-        # Add summary info
-        if verification_status == "success":
-            record["summary"] = {
-                "turns_to_fix": turn - 1,
-                "hardness_score": round((turn - 1) / args.max_turns, 2)
-            }
-        else:
-            record["summary"] = {
-                "turns_to_fix": args.max_turns,
-                "hardness_score": 1.0
-            }
+        record["summary"] = {
+            "turns_to_fix": turn - 1 if verification_status == "success" else args.max_turns,
+            "hardness_score": round((turn - 1) / args.max_turns, 2)
+        }
 
         all_results.append(record)
 
-        # Auto-save progress
+        # Auto-save
         if len(all_results) % args.save_every == 0:
             with open(args.output, "w", encoding="utf-8") as f:
                 json.dump(all_results, f, indent=2, ensure_ascii=False)
-            print(f"✅ Progress saved ({len(all_results)} samples)")
+            print(f"💾 Progress saved ({len(all_results)} total samples)")
 
-    # Final save
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
     print(f"\n🎯 Finished processing all samples. Results saved to: {args.output}")
@@ -197,16 +203,12 @@ def main():
                         help="LLM model name (default: ollama/llama3)")
     parser.add_argument("--instruction", type=str, default=DEFAULT_INSTRUCTION,
                         help="System instruction prompt for the LLM")
-    parser.add_argument("--max_turns", type=int, default=10,
-                        help="Maximum number of correction turns per statement (default: 10)")
-    parser.add_argument("--temperature", type=float, default=0.0,
-                        help="LLM temperature (default: 0.0)")
-    parser.add_argument("--max_tokens", type=int, default=512,
-                        help="Max tokens for each generation (default: 512)")
-    parser.add_argument("--save_every", type=int, default=5,
-                        help="Save progress every N samples (default: 5)")
-    parser.add_argument("--num_samples", type=int, default=20,
-                        help="Number of NL statements to process (default: 20)")
+    parser.add_argument("--max_turns", type=int, default=10, help="Maximum number of correction turns (default: 10)")
+    parser.add_argument("--temperature", type=float, default=0.0, help="LLM temperature (default: 0.0)")
+    parser.add_argument("--max_tokens", type=int, default=512, help="Max tokens for each generation (default: 512)")
+    parser.add_argument("--save_every", type=int, default=5, help="Save progress every N samples (default: 5)")
+    parser.add_argument("--num_samples", type=int, default=20, help="Number of NL statements to process (default: 20)")
+    parser.add_argument("--resume", action="store_true", help="Resume from existing output file (default: False)")
     args = parser.parse_args()
     run_pipeline(args)
 
