@@ -6,17 +6,18 @@ def load(num, path):
     samples = []
 
     print("Start Loading Data")
-
+    ids=[]
     for data in ds:
         natural_language_statement = data['natural_language_statement']
         formal_statement = data['formal_statement']
         id = data['id']
-
-        samples.append({
-            "id": id,
-            "natural_language_statement": natural_language_statement,
-            "formal_statement": formal_statement
-        })
+        if id not in ids:
+            samples.append({
+                "id": id,
+                "natural_language_statement": natural_language_statement,
+                "formal_statement": formal_statement
+            })
+            ids.append(id)
 
         if(len(samples) >= num): 
             break
@@ -28,7 +29,7 @@ def load(num, path):
         json.dump(samples, f, indent=2, ensure_ascii=False)
 
 def main():
-    PATH = "data/data.json"
+    PATH = "data/data3.json"
     load(100, PATH)
 
 if __name__ == "__main__":

@@ -15,10 +15,22 @@ def generate(input, output):
 
         Rules:
         1. Only output the complete Lean 4 code.
-        2. The output MUST start immediately after the ':= by' part of the theorem statement and continue until all goals are closed.
+        2. The output MUST start immediately after the ':= by' part of the theorem statement and continue until all goals are closed. Do not include any part of the theorem statement in your output.
         3. Do not provide the theorem statement itself, any explanation, or any surrounding text (like "Here is the proof:").
         4. The proof must be syntactically complete and mathematically correct.
-        5. Do not output ANY Lean 3 code, only Lean 4 code
+        5. Do not output ANY Lean 3 code, only Lean 4 code.
+        6. Strictly adhere to Lean 4 syntax and proper Lean 4 formatting.
+        
+        Here is an example of Lean 4 syntax. The section you are to generate is the section after the ":= by".
+        ```theorem ex : (P → Q → R) → P ∧ Q → R := by
+        intro hPQR
+        intro hPQ
+        have hP := hPQ
+        apply And.left at hPQ
+        apply And.right at hP
+        apply hPQR at hPQ
+        apply hPQ at hP
+        exact hP```
 
         Theorem Statement: {formal_statement}
 
@@ -67,8 +79,8 @@ def generate(input, output):
     return results   
 
 def main():
-    input = "data/data.json"
-    output = "data/proofs2.json"
+    input = "data/data3.json"
+    output = "data/proofs5.json"
     generate(input, output)
 
 if __name__ == "__main__":
