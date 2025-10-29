@@ -152,12 +152,16 @@ def run_pipeline(args):
 
             if verification_status != "success":
                 error_msg = verification.get("error_message", "Unknown error")
-                correction_prompt = (
-                    f"The Lean compiler returned the following error:\n"
-                    f"{error_msg}\n\n"
-                    "Please correct your previous Lean 4 theorem accordingly. "
-                    "Only output the corrected Lean code."
-                )
+                correction_prompt = f"""
+                    The previous Lean code was:
+                    {response}
+
+                    The Lean compiler returned this error:
+                    {error_msg}
+
+                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.
+                    Only output the corrected Lean code.
+                """
                 messages.append({"role": "user", "content": correction_prompt})
 
             turn += 1
@@ -179,6 +183,27 @@ def run_pipeline(args):
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False)
     print(f"\n🎯 Finished processing all samples. Results saved to: {args.output}")
+
+    # -----------------------------
+    # Accuracy metrics
+    # -----------------------------
+    total_samples = len(all_results)
+    total_success = sum(1 for r in all_results if r["final_status"] == "success")
+
+    # Success at first turn
+    first_turn_success = 0
+    for r in all_results:
+        if r["conversation"]:
+            first = r["conversation"][0]
+            if first["verification"]["status"] == "success":
+                first_turn_success += 1
+
+    overall_acc = total_success / total_samples if total_samples > 0 else 0
+    first_turn_acc = first_turn_success / total_samples if total_samples > 0 else 0
+
+    print("\n📊 Accuracy Report")
+    print(f"✅ Overall Success Rate: {total_success}/{total_samples} ({overall_acc:.2%})")
+    print(f"⚡ First-Turn Success Rate: {first_turn_success}/{total_samples} ({first_turn_acc:.2%})")
 
 # -----------------------------
 # CLI interface
@@ -203,7 +228,7 @@ def main():
                         help="LLM model name (default: ollama/llama3)")
     parser.add_argument("--instruction", type=str, default=DEFAULT_INSTRUCTION,
                         help="System instruction prompt for the LLM")
-    parser.add_argument("--max_turns", type=int, default=10, help="Maximum number of correction turns (default: 10)")
+    parser.add_argument("--max_turns", type=int, default=5, help="Maximum number of correction turns (default: 10)")
     parser.add_argument("--temperature", type=float, default=0.0, help="LLM temperature (default: 0.0)")
     parser.add_argument("--max_tokens", type=int, default=512, help="Max tokens for each generation (default: 512)")
     parser.add_argument("--save_every", type=int, default=5, help="Save progress every N samples (default: 5)")
