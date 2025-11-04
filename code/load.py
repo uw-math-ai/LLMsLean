@@ -29,8 +29,8 @@ def load(num, path):
         json.dump(samples, f, indent=2, ensure_ascii=False)
 
 def main():
-    PATH = "data/data3.json"
-    load(100, PATH)
+    PATH = "data/data4.json"
+    load(20, PATH)
 
 if __name__ == "__main__":
     main()

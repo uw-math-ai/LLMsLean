@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 # load_dotenv()
 
-def generate(input, output):
+def generate(input, output, num):
     models = [
         "ollama/llama3"
     ]
@@ -53,21 +53,22 @@ def generate(input, output):
     
         prompt = prompt_template.format(formal_statement=sample['formal_statement'])
         messages = [{"role": "user", "content": prompt}]
-
         for model in models:
-            try:
-                response = litellm.completion(
-                    model=model,
-                    messages=messages,
-                    temperature=0.0,
-                    max_tokens=512
-                )
-            
-                result["output"][model] = response.choices[0].message.content
-            
-            except Exception as e:
-                result["output"][model] = f"ERROR: {e}"
-    
+            result["output"][model]= []
+            for x in range(num):
+                try:
+                    response = litellm.completion(
+                        model=models[0],
+                        messages=messages,
+                        temperature=0.0,
+                        max_tokens=512
+                    )
+                    
+                    result["output"][model].append(response.choices[0].message.content)
+
+                except Exception as e:
+                    result["output"][model].append(f"ERROR: {e}")
+
         results.append(result)
 
     print(f"Finish Generating {len(samples)} results")
@@ -80,8 +81,8 @@ def generate(input, output):
 
 def main():
     input = "data/data3.json"
-    output = "data/proofs5.json"
-    generate(input, output)
+    output = "data/proofs6.json"
+    generate(input, output, 5)
 
 if __name__ == "__main__":
     main()
