@@ -48,8 +48,8 @@ def verify_single_result(result, project):
     return result
 
 def main():
-    input = "data/proofs6.json"
-    output = "data/final_result7.json"
+    input = "data/proofs8.json"
+    output = "data/final_result9.json"
     
     with open(input, 'r', encoding='utf-8') as f:
         results = json.load(f)

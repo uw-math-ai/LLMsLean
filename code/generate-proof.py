@@ -54,13 +54,17 @@ def generate(input, output, num):
         prompt = prompt_template.format(formal_statement=sample['formal_statement'])
         messages = [{"role": "user", "content": prompt}]
         for model in models:
-            result["output"][model]= []
+            try:
+                result["output"][model] =  result["output"][model]
+                
+            except:
+                result["output"][model]= []
             for x in range(num):
                 try:
                     response = litellm.completion(
                         model=models[0],
                         messages=messages,
-                        temperature=0.0,
+                        temperature=1.0,
                         max_tokens=512
                     )
                     
@@ -80,9 +84,9 @@ def generate(input, output, num):
     return results   
 
 def main():
-    input = "data/data3.json"
-    output = "data/proofs6.json"
-    generate(input, output, 5)
+    input = "data/data4.json"
+    output = "data/proofs8.json"
+    generate(input, output, 1)
 
 if __name__ == "__main__":
     main()
