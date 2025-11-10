@@ -143,13 +143,13 @@ def generate(input, output, num, temperature):
         Rules:
         1. Only output the complete Lean 4 code.
         2. 2. The output MUST only inclue the tactics used to complete the proof.
-        3. Do not provide the theorem statement itself, any explanation, or any surrounding text (like "Here is the proof:").
         4. The proof must be syntactically complete and mathematically correct.
         5. Do not output ANY Lean 3 code, only Lean 4 code.
         6. Strictly adhere to Lean 4 syntax and proper Lean 4 formatting.
         
-        Here is an example of Lean 4 syntax. The section you are to generate is the section after the ":= by".
-        ```theorem ex : (P → Q → R) → P ∧ Q → R := by
+        Here is an example of a correct proof:
+        Theorem Statement: theorem ex : (P → Q → R) → P ∧ Q → R := by sorry
+        Correct Output: ```
         intro hPQR
         intro hPQ
         have hP := hPQ
@@ -159,9 +159,9 @@ def generate(input, output, num, temperature):
         apply hPQ at hP
         exact hP```
 
-        Theorem Statement: {formal_statement}
+        Your Theorem Statement: {formal_statement}
 
-        Lean 4 Proof:
+        Your Output:
     """
 
     with open(input, 'r', encoding='utf-8') as f:
@@ -262,18 +262,19 @@ def verify(input, output):
         total_count = len(final_results)
         for theorem in final_results:
             success = 0
-            models = list(final_results[0]['output']).keys()
-            recent = max(final_results[0]['output'][[models[0]]].keys())
-            for model in final_results[0]['output'][model].keys():
+            models = list(final_results[0]['output'].keys())
+            recent = max(final_results[0]['output'][list(models)[0]])
+            for model in models:
                 for attempt in theorem["verification"][model][recent]:
                     if attempt["status"] == "success" and success ==0: success = 1
         if total_count > 0:
             print(f"\n{model} Success Rate: {success_count}/{total_count} ({success_count/total_count:.2%})")
 
 def main():
-    input = "data/data4.json"
-    output = "data/results.json"
-    generate(input, output, 1, 0.7)
+    input = "data/data3.json"
+    output = "data/results2.json"
+
+    amend(output, output, 0.5)
     verify(output, output)
 
 if __name__ == "__main__":
