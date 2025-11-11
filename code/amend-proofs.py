@@ -34,7 +34,16 @@ def verify_single_result(result, project):
                 try:
                     response = server.run(command)
                     if not isinstance(response, LeanError) and response.lean_code_is_valid():
-                        result['verification'][model][recent].append({"status": "success"})
+                        if len(response.sorries) == 0:
+                            result['verification'][model][recent].append({"status": "success"})
+                        else:
+                            errors = [msg for msg in response.messages]
+                            if errors:
+                                error_messages = [e.data for e in errors]
+                                result['verification'][model][recent].append({"status": "failed", "error": "\n".join(error_messages)})
+                            else:
+                                result['verification'][model][recent].append({"status": "failed", "error": "Unknown validation error"})
+
                     elif isinstance(response, LeanError):
                         result['verification'][model][recent].append({"status": "failed", "error": response.message})
                     else:
@@ -97,6 +106,7 @@ def amend(input, output, temperature):
         
         models = sample['output'].keys()
         for model in models:
+            
             if not type(sample['output'][model]) == dict: 
                 attempt = 1
                 result['output'][model] = {}
@@ -105,10 +115,14 @@ def amend(input, output, temperature):
                 result['verification'][model][0] = sample['verification'][model]
             else: 
                 attempt = int(max(sample['output'][model].keys())) + 1
-    
+
+            
             result["output"][model][attempt]= []
 
             for i, proof in enumerate(result['output'][model][str(attempt-1)]):
+                if result['verification'][model][str(attempt-1)][i]['status'] == "success": 
+                    result["output"][model][attempt].append(result["output"][model][str(attempt-1)][i])
+                    continue
                 prompt = prompt_template.format(formal_statement=sample['formal_statement'], full_statement=sample['formal_statement'].replace('sorry', '')+proof.replace("```", ''), error =result['verification'][model][str(attempt-1)][i]['error'])
                 messages = [{"role": "user", "content": prompt}]
                 try:
@@ -132,9 +146,9 @@ def amend(input, output, temperature):
         json.dump(results, f, indent=2, ensure_ascii=False)
     return results   
 
-def generate(input, output, num, temperature):
+def generate(input, output, num, temperature, model):
     models = [
-        "ollama/llama3"
+        model
     ]
 
     prompt_template = """
@@ -271,11 +285,10 @@ def verify(input, output):
             print(f"\n{model} Success Rate: {success_count}/{total_count} ({success_count/total_count:.2%})")
 
 def main():
-    input = "data/data3.json"
-    output = "data/results2.json"
+    input = "data/test.json"
+    output = "data/test.json"
+    model = "ollama/gemma3:12b"
 
-    amend(output, output, 0.5)
-    verify(output, output)
-
+    
 if __name__ == "__main__":
     main()
