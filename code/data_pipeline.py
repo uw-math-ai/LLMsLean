@@ -66,12 +66,14 @@ def verify_with_lean(lean_code: str, project) -> dict:
 # -----------------------------
 # LLM generation helper
 # -----------------------------
-def generate_with_llm(model: str, messages: list, temperature: float, max_tokens: int) -> str:
+def generate_with_llm(model: str, messages: list, temperature: float, max_tokens: int, top_p: float, top_k: int) -> str:
     try:
         response = litellm.completion(
             model=model,
             messages=messages,
             temperature=temperature,
+            top_p=top_p,
+            top_k=top_k,
             max_tokens=max_tokens
         )
         return response.choices[0].message.content.strip()
@@ -130,7 +132,9 @@ def run_pipeline(args):
                 model=args.model,
                 messages=messages,
                 temperature=args.temperature,
-                max_tokens=args.max_tokens
+                max_tokens=args.max_tokens,
+                top_p=args.top_p,
+                top_k=args.top_k
             )
 
             print(f"🤖 LLM Output:\n{response}\n")
@@ -234,6 +238,9 @@ def main():
     parser.add_argument("--save_every", type=int, default=5, help="Save progress every N samples (default: 5)")
     parser.add_argument("--num_samples", type=int, default=20, help="Number of NL statements to process (default: 20)")
     parser.add_argument("--resume", action="store_true", help="Resume from existing output file (default: False)")
+    parser.add_argument("--top_p", type=float, default=1.0, help="Top-p sampling parameter (default: 1.0)")
+    parser.add_argument("--top_k", type=int, default=50, help="Top-k sampling parameter (default: 50)")
+
     args = parser.parse_args()
     run_pipeline(args)
 

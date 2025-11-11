@@ -1,0 +1,802 @@
+[
+  {
+    "id": "lean_workbook_plus_2",
+    "natural_language_statement": "Solve for $x$ in the given inequality: $x^2-2x-24<0$",
+    "formal_statement": "theorem lean_workbook_plus_2 (x : ℝ) : x^2 - 2*x - 24 < 0 ↔ x ∈ Set.Ioo (-4) 6   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem sq_x_le_24 : ∀ x, (x * x - 2 * x - 24) < 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_6",
+    "natural_language_statement": " $\\begin{array}{l}\\left( {{x^2} + 1} \\right)\\left( {{y^2} + 1} \\right)\\left( {{z^2} + 1} \\right) = \\sum {{x^2}} + \\sum {{x^2}{y^2}} + {x^2}{y^2}{z^2} + 1\\\\ = {\\left( {x + y + z} \\right)^2} - 2\\left( {xy + yz + zx} \\right) + {\\left( {xy + yz + zx} \\right)^2} - 2xyz\\left( {x + y + z} \\right) + {x^2}{y^2}{z^2} + 1\\\\ = \\left[ {{{\\left( {x + y + z} \\right)}^2} - 2xyz\\left( {x + y + z} \\right) + {x^2}{y^2}{z^2}} \\right] + \\left[ {{{\\left( {xy + yz + zx} \\right)}^2} - 2\\left( {xy + yz + zx} \\right) + 1} \\right]\\\\ = {\\left( {x + y + z - xyz} \\right)^2} + {\\left( {xy + yz + zx - 1} \\right)^2}\\end{array}$ .",
+    "formal_statement": "theorem lean_workbook_plus_6  (x y z : ℤ) :\n  (x^2 + 1) * (y^2 + 1) * (z^2 + 1) =\n  (x + y + z)^2 - 2 * (x * y + y * z + z * x) + (x * y + y * z + z * x)^2 - 2 * x * y * z * (x + y + z) + x^2 * y^2 * z^2 + 1   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem equality : ∀ (x y z : ℚ), ((x^2 + 1) * (y^2 + 1) * (z^2 + 1)) = ((x + y + z)^2 - 2*(xy + yz + zx)*((x + y + z)) + ((xy + yz + zx)^2 - 2*(xy + yz + zx) + 1) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "formal_statement": "theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem nthm (h : 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1) : (∑ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1)) * ((ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0)))^3) / (1 - (ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0))^(8*(i+1)))) ≥ 9/8 * (∏ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1))^((3/4)*(i+1))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "formal_statement": "theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem nthm (h : 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1) : (∑ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1)) * ((ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0)))^3) / (1 - (ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0))^(8*(i+1)))) ≥ 9/8 * (∏ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1))^((3/4)*(i+1))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "formal_statement": "theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem nthm (h : 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1) : (∑ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1)) * ((ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0)))^3) / (1 - (ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0))^(8*(i+1)))) ≥ 9/8 * (∏ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1))^((3/4)*(i+1))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "formal_statement": "theorem lean_workbook_plus_17 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (habc : a * b * c = 1) (h : a^4 + b^4 + c^4 = 1) : a^3 / (1 - a^8) + b^3 / (1 - b^8) + c^3 / (1 - c^8) ≥ 9 * (3 : ℝ)^(1 / 4) / 8   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem nthm (h : 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1) : (∑ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1)) * ((ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0)))^3) / (1 - (ite (i = 0) a (ite (i = 1) b (ite (i = 2) c 0))^(8*(i+1)))) ≥ 9/8 * (∏ (i : ℕ), (ite (i = 0) 1 (-1)^(i+1))^((3/4)*(i+1))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_21",
+    "natural_language_statement": "Prove that $\\binom{n-q}{p-q}\\binom{n}{q}=\\binom{n}{p}\\binom{p}{q}$",
+    "formal_statement": "theorem lean_workbook_plus_21 (n p q : ℕ) (hp : p ≤ n) (hq : q ≤ p) : (n - q).choose (p - q) * n.choose q = n.choose p * p.choose q   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem binomial_identity : ∀ (n p q : ℕ), \n    binomial n (n - q) * binomial n q = binomial n p * binomial p q := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_24",
+    "natural_language_statement": "For positive real numbers $a,b,c,$ have \\n $\\frac 1{a} + \\frac 1{b} + \\frac 1{c} \\ge 2\\left(\\frac 1{b+c} + \\frac 1{c+a} + \\frac 1{a+b}\\right).$",
+    "formal_statement": "theorem lean_workbook_plus_24 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : 1 / a + 1 / b + 1 / c ≥ 2 * (1 / (b + c) + 1 / (c + a) + 1 / (a + b))   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem pos_real_ineq (h : 0 < a ∧ 0 < b ∧ 0 < c) : \n(1 / a + 1 / b + 1 / c) ≥ 2 * ((1 / (b + c)) + (1 / (c + a)) + (1 / (a + b))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_24",
+    "natural_language_statement": "For positive real numbers $a,b,c,$ have \\n $\\frac 1{a} + \\frac 1{b} + \\frac 1{c} \\ge 2\\left(\\frac 1{b+c} + \\frac 1{c+a} + \\frac 1{a+b}\\right).$",
+    "formal_statement": "theorem lean_workbook_plus_24 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : 1 / a + 1 / b + 1 / c ≥ 2 * (1 / (b + c) + 1 / (c + a) + 1 / (a + b))   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem pos_real_ineq (h : 0 < a ∧ 0 < b ∧ 0 < c) : \n(1 / a + 1 / b + 1 / c) ≥ 2 * ((1 / (b + c)) + (1 / (c + a)) + (1 / (a + b))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_24",
+    "natural_language_statement": "For positive real numbers $a,b,c,$ have \\n $\\frac 1{a} + \\frac 1{b} + \\frac 1{c} \\ge 2\\left(\\frac 1{b+c} + \\frac 1{c+a} + \\frac 1{a+b}\\right).$",
+    "formal_statement": "theorem lean_workbook_plus_24 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : 1 / a + 1 / b + 1 / c ≥ 2 * (1 / (b + c) + 1 / (c + a) + 1 / (a + b))   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem pos_real_ineq (h : 0 < a ∧ 0 < b ∧ 0 < c) : \n(1 / a + 1 / b + 1 / c) ≥ 2 * ((1 / (b + c)) + (1 / (c + a)) + (1 / (a + b))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_26",
+    "natural_language_statement": "We can prove the following inequality by AM-GM. \\nLet $a$ , $b$ and $c$ be positive numbers. Prove that: \\n $ \\left(\\frac{2a}{b+c}\\right)^{\\frac{27}{46}}+\\left(\\frac{2b}{a+c}\\right)^{\\frac{27}{46}}+\\left(\\frac{2c}{a+b}\\right)^{\\frac{27}{46}}\\geq3 $",
+    "formal_statement": "theorem lean_workbook_plus_26 (a b c : ℝ) : (2 * a / (b + c)) ^ (27 / 46) + (2 * b / (a + c)) ^ (27 / 46) + (2 * c / (a + b)) ^ (27 / 46) ≥ 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem am_gm_inequality (a b c : ℝ) (hab habc hacb : 0 < a ∧ 0 < b ∧ 0 < c) : ((2 * a) / (b + c)) ^ (27/46) + ((2 * b) / (a + c)) ^ (27/46) + ((2 * c) / (a + b)) ^ (27/46) ≥ 3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_29",
+    "natural_language_statement": "Another equivalent equation is\\n $-(2 \\cos (2 x)-2 \\cos (4 x)+2 \\cos (6 x)-1) \\csc ^2\\left(\\frac{\\pi }{4}-x\\right) \\csc ^2\\left(x+\\frac{\\pi }{4}\\right)=0$ .\\n",
+    "formal_statement": "theorem lean_workbook_plus_29 :\n  ∀ x : ℝ,\n    -(2 * Real.cos (2 * x) - 2 * Real.cos (4 * x) + 2 * Real.cos (6 * x) - 1) *\n      (1 / Real.sin ((π / 4) - x))^2 * (1 / Real.sin (x + (π / 4)))^2 = 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem eq : ∀ (x : ℝ), -(2 * cos(2 * x) - 2 * cos(4 * x) + 2 * cos(6 * x) - 1) * csc(π/4-x)^2 * csc(x+π/4)^2 = 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_33",
+    "natural_language_statement": "Prove that the following inequality holds in any triangle $ ABC $ : \\n $ a(2a^{2}-b^{2}-c^{2})+b(2b^{2}-c^{2}-a^{2})+c(2c^{2}-a^{2}-b^{2})\\geq 0 $",
+    "formal_statement": "theorem lean_workbook_plus_33 :\n    ∀ a b c : ℝ, a > 0 ∧ b > 0 ∧ c > 0 ∧ a + b > c ∧ a + c > b ∧ b + c > a → a * (2 * a^2 - b^2 - c^2) + b * (2 * b^2 - c^2 - a^2) + c * (2 * c^2 - a^2 - b^2) ≥ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem triangle_inequality (a b c : ℝ) : a * (2 * a ^ 2 - b ^ 2 - c ^ 2) + b * (2 * b ^ 2 - c ^ 2 - a ^ 2) + c * (2 * c ^ 2 - a ^ 2 - b ^ 2) ≥ 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_33",
+    "natural_language_statement": "Prove that the following inequality holds in any triangle $ ABC $ : \\n $ a(2a^{2}-b^{2}-c^{2})+b(2b^{2}-c^{2}-a^{2})+c(2c^{2}-a^{2}-b^{2})\\geq 0 $",
+    "formal_statement": "theorem lean_workbook_plus_33 :\n    ∀ a b c : ℝ, a > 0 ∧ b > 0 ∧ c > 0 ∧ a + b > c ∧ a + c > b ∧ b + c > a → a * (2 * a^2 - b^2 - c^2) + b * (2 * b^2 - c^2 - a^2) + c * (2 * c^2 - a^2 - b^2) ≥ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem triangle_inequality (a b c : ℝ) : a * (2 * a ^ 2 - b ^ 2 - c ^ 2) + b * (2 * b ^ 2 - c ^ 2 - a ^ 2) + c * (2 * c ^ 2 - a ^ 2 - b ^ 2) ≥ 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_35",
+    "natural_language_statement": "Let $a,b,c$ be positive real numbers such that $a+b+c=3$ , prove that $b^{\\frac{2}{3}}c^{\\frac{2}{3}}+c^{\\frac{2}{3}}a^{\\frac{2}{3}}+a^{\\frac{2}{3}}b^{\\frac{2}{3}}\\le3.$",
+    "formal_statement": "theorem lean_workbook_plus_35 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hab : a + b + c = 3) : b^(2/3) * c^(2/3) + c^(2/3) * a^(2/3) + a^(2/3) * b^(2/3) ≤ 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_ineq : a + b + c = 3 → (b^(2/3) * c^(2/3) + c^(2/3) * a^(2/3) + a^(2/3) * b^(2/3)) ≤ 3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_39",
+    "natural_language_statement": "10) We have \\(l,a,b,r\\) where \\(l\\) is left, \\(a,b\\) are the two mirrors and \\(r\\) is right. If a light particle ends up moving left in \\(l\\), that means that it hits \\(a\\), goes \\(n\\) times up and down between \\(a,b\\) and goes left afterwards. Here \\(n\\ge 0\\). The probability for this is \\(\\frac{1}{2}\\cdot \\left(\\frac{1}{4}\\right)^n\\) .\\n\\nHence we find \\(\\frac{1}{2}\\sum_{n=0}^\\infty \\left(\\frac{1}{4}\\right)^n=\\frac{1}{2}\\cdot \\frac{1}{1-1/4}=\\frac{2}{3}\\) .",
+    "formal_statement": "theorem lean_workbook_plus_39 :\n  ∑' n : ℕ, (1 / 2) * ((1 / 4)^n) = 2 / 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem mirror_probability : (1 / 2) * sum (λ n, ((1 / 4) ^ n)) = 2 / 3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_40",
+    "natural_language_statement": "The correct answer is $A$ . \\nIf $0< \\\\theta < \\\\frac{\\\\pi}{4}$ then $\\\\cos \\\\theta >\\\\sin\\\\theta$ and the rest is easy.",
+    "formal_statement": "theorem lean_workbook_plus_40 :\n  ∀ θ : ℝ, 0 < θ ∧ θ < Real.pi / 4 → Real.cos θ > Real.sin θ   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_gt_sin : ∀ θ, 0 < θ ∧ θ < π/4 → cos θ > sin θ := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_40",
+    "natural_language_statement": "The correct answer is $A$ . \\nIf $0< \\\\theta < \\\\frac{\\\\pi}{4}$ then $\\\\cos \\\\theta >\\\\sin\\\\theta$ and the rest is easy.",
+    "formal_statement": "theorem lean_workbook_plus_40 :\n  ∀ θ : ℝ, 0 < θ ∧ θ < Real.pi / 4 → Real.cos θ > Real.sin θ   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_gt_sin : ∀ θ, 0 < θ ∧ θ < π/4 → cos θ > sin θ := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_40",
+    "natural_language_statement": "The correct answer is $A$ . \\nIf $0< \\\\theta < \\\\frac{\\\\pi}{4}$ then $\\\\cos \\\\theta >\\\\sin\\\\theta$ and the rest is easy.",
+    "formal_statement": "theorem lean_workbook_plus_40 :\n  ∀ θ : ℝ, 0 < θ ∧ θ < Real.pi / 4 → Real.cos θ > Real.sin θ   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_gt_sin : ∀ θ, 0 < θ ∧ θ < π/4 → cos θ > sin θ := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_40",
+    "natural_language_statement": "The correct answer is $A$ . \\nIf $0< \\\\theta < \\\\frac{\\\\pi}{4}$ then $\\\\cos \\\\theta >\\\\sin\\\\theta$ and the rest is easy.",
+    "formal_statement": "theorem lean_workbook_plus_40 :\n  ∀ θ : ℝ, 0 < θ ∧ θ < Real.pi / 4 → Real.cos θ > Real.sin θ   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_gt_sin : ∀ θ, 0 < θ ∧ θ < π/4 → cos θ > sin θ := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_45",
+    "natural_language_statement": "Base Case: $5^{2\\cdot1}\\equiv 5^{2}\\equiv 25 \\pmod{100}$",
+    "formal_statement": "theorem lean_workbook_plus_45 :\n  (5^(2*1) ≡ 25 [MOD 100])   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem base_case : 25 ≡ (5 ^ (2 * 1)) mod 100 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_46",
+    "natural_language_statement": "Another shortcut would be to notice that $55_6 + 1_6 = 100_6$ . Thus, your fraction in decimal is $\\frac{4 \\cdot 6 + 1}{6^2 - 1}$ , or $\\frac{25}{35} = \\frac{5}{7}$ .",
+    "formal_statement": "theorem lean_workbook_plus_46 :\n  ((4 * 6 + 1) : ℚ) / (6^2 - 1) = 5/7   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem frac_eq : (25 / 35) = (5 / 7) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_48",
+    "natural_language_statement": "The answer is just one minus this: $1-\\frac{25}{64}=\\boxed{\\frac{39}{64}}$",
+    "formal_statement": "theorem lean_workbook_plus_48 :\n  1 - (25 : ℝ) / 64 = 39 / 64   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem one_minus_twenty_five_over_sixty_four : \n1 - 25/64 = 39/64 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_49",
+    "natural_language_statement": "Use AM-GM Inequality \\n ${\\left( {a + \\frac{1}{a}} \\right)^2} + {\\left( {b + \\frac{1}{b}} \\right)^2} \\ge \\frac{{{{\\left( {a + b + \\frac{1}{a} + \\frac{1}{b}} \\right)}^2}}}{2} = \\frac{{{{\\left( {1 + \\frac{1}{{ab}}} \\right)}^2}}}{2} \\ge \\frac{{{{\\left( {1 + \\frac{1}{{{{\\left( {\\frac{{a + b}}{2}} \\right)}^2}}}} \\right)}^2}}}{2} = \\frac{{25}}{2}$",
+    "formal_statement": "theorem lean_workbook_plus_49 :  ∀ a b : ℝ, a > 0 ∧ b > 0 → (a + 1 / a) ^ 2 + (b + 1 / b) ^ 2 ≥ 25 / 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem amgm_inequality : ∀ a b, (a + reciprocal a)^2 + (b + reciprocal b)^2 >= 25/2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_49",
+    "natural_language_statement": "Use AM-GM Inequality \\n ${\\left( {a + \\frac{1}{a}} \\right)^2} + {\\left( {b + \\frac{1}{b}} \\right)^2} \\ge \\frac{{{{\\left( {a + b + \\frac{1}{a} + \\frac{1}{b}} \\right)}^2}}}{2} = \\frac{{{{\\left( {1 + \\frac{1}{{ab}}} \\right)}^2}}}{2} \\ge \\frac{{{{\\left( {1 + \\frac{1}{{{{\\left( {\\frac{{a + b}}{2}} \\right)}^2}}}} \\right)}^2}}}{2} = \\frac{{25}}{2}$",
+    "formal_statement": "theorem lean_workbook_plus_49 :  ∀ a b : ℝ, a > 0 ∧ b > 0 → (a + 1 / a) ^ 2 + (b + 1 / b) ^ 2 ≥ 25 / 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem amgm_inequality : ∀ a b, (a + reciprocal a)^2 + (b + reciprocal b)^2 >= 25/2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_50",
+    "natural_language_statement": "Hence $p={0.5\\over 5.5}={1\\over 11}$",
+    "formal_statement": "theorem lean_workbook_plus_50  (p : ℝ)\n  (h₀ : p = 0.5 / 5.5) :\n  p = 1 / 11   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem p_eq_one_over_eleven : \n(500/5500) = (10000/110000) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_52",
+    "natural_language_statement": "Derive $ \\cos^{2}2x = \\frac{1+\\cos 4x}{2}$",
+    "formal_statement": "theorem lean_workbook_plus_52 : ∀ x : ℝ, Real.cos (2 * x) ^ 2 = (1 + Real.cos (4 * x)) / 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos2_2x_eq : ∀ x, cos (2 * x) ^ 2 = (1 + cos (4 * x)) / 2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_52",
+    "natural_language_statement": "Derive $ \\cos^{2}2x = \\frac{1+\\cos 4x}{2}$",
+    "formal_statement": "theorem lean_workbook_plus_52 : ∀ x : ℝ, Real.cos (2 * x) ^ 2 = (1 + Real.cos (4 * x)) / 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos2_2x_eq : ∀ x, cos (2 * x) ^ 2 = (1 + cos (4 * x)) / 2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_55",
+    "natural_language_statement": "Given $pr > q^{2}$ and $rq > p^{2}$, prove that $(pr)(rq) > p^{2}q^{2}$.",
+    "formal_statement": "theorem lean_workbook_plus_55 (p q r : ℕ) (h1 : p * r > q ^ 2) (h2 : q * r > p ^ 2) : (p * r) * (q * r) > p ^ 2 * q ^ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem lt_mul_sq : ∀ (p q : Nat), pr > q^2 → rq > p^2 → (pr)*(rq) > p^2*q^2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_56",
+    "natural_language_statement": "Prove that $\\sin \\frac{\\pi}{4}=\\cos \\frac{\\pi}{4}=\\frac{1}{\\sqrt{2}}$ .",
+    "formal_statement": "theorem lean_workbook_plus_56 : sin (π / 4) = cos (π / 4) ∧ sin (π / 4) = 1 / Real.sqrt 2 ∧ cos (π / 4) = 1 / Real.sqrt 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem sin_pi_div_4_eq_cos_pi_div_4_eq_sqrt_2_inv : \n    sin (π / 4) = cos (π / 4) = 1 / sqrt 2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_62",
+    "natural_language_statement": "$3(a^2b+b^2c+c^2a)\\leq (ab+bc+ca)^2\\leq 9$",
+    "formal_statement": "theorem lean_workbook_plus_62 : ∀ a b c : ℝ, 3 * (a ^ 2 * b + b ^ 2 * c + c ^ 2 * a) ≤ (a * b + b * c + c * a) ^ 2 ∧ (a * b + b * c + c * a) ^ 2 ≤ 9   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_inequality : \n3 * ((a ^ 2) * b + (b ^ 2) * c + (c ^ 2) * a) ≤ ((a * b + b * c + c * a) ^ 2) ≤ 9 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_62",
+    "natural_language_statement": "$3(a^2b+b^2c+c^2a)\\leq (ab+bc+ca)^2\\leq 9$",
+    "formal_statement": "theorem lean_workbook_plus_62 : ∀ a b c : ℝ, 3 * (a ^ 2 * b + b ^ 2 * c + c ^ 2 * a) ≤ (a * b + b * c + c * a) ^ 2 ∧ (a * b + b * c + c * a) ^ 2 ≤ 9   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_inequality : \n3 * ((a ^ 2) * b + (b ^ 2) * c + (c ^ 2) * a) ≤ ((a * b + b * c + c * a) ^ 2) ≤ 9 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_75",
+    "natural_language_statement": "It's equivalent to \\n\\n $ab+bc+ca\\le 3abc+2(a^3+b^3+c^3)$ \\n\\n $\\Leftrightarrow 2(a^3+b^3+c^3)+3abc\\ge (ab+bc+ca)(a+b+c)=\\sum ab(a+b)+3abc$",
+    "formal_statement": "theorem lean_workbook_plus_75 {a b c : ℝ} (ha : a ≥ 0) (hb : b ≥ 0) (hc : c ≥ 0) : 2 * (a ^ 3 + b ^ 3 + c ^ 3) + 3 * a * b * c ≥ (a * b + b * c + c * a) * (a + b + c)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_ineq : ∀ a b c, 2*(a^3 + b^3 + c^3) + 3*abc ≥ (a*b + b*c + c*a)*(a + b + c) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_86",
+    "natural_language_statement": "Let $a,b,c>0$ and $\\frac{1-ab}{1+b}+\\frac{1-bc}{1+c}+\\frac{1-ca}{1+a}=0$ . Prove that $$abc\\leq 1$$",
+    "formal_statement": "theorem lean_workbook_plus_86 (a b c : ℝ) (h : a > 0 ∧ b > 0 ∧ c > 0) (habc : a * b * c = 1) (h : (1 - a * b) / (1 + b) + (1 - b * c) / (1 + c) + (1 - c * a) / (1 + a) = 0) : a * b * c ≤ 1   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_le_one : a * b * c ≤ 1 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_93",
+    "natural_language_statement": "Let $a,b>0$. Prove that $\\frac{a^2}{b^2}+\\frac{b}{a+3b}\\geq 6-\\frac{9}{\\sqrt[3]{4}}$",
+    "formal_statement": "theorem lean_workbook_plus_93 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) : (a^2 / b^2 + b / (a + 3 * b)) ≥ 6 - 9 / (4:ℝ)^(1/3)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem lb : ∀ a b, 0 < a → 0 < b → (a ^ 2 / b ^ 2 + b / (a + 3 * b)) ≥ 6 - 9 / (√[3] 4) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_93",
+    "natural_language_statement": "Let $a,b>0$. Prove that $\\frac{a^2}{b^2}+\\frac{b}{a+3b}\\geq 6-\\frac{9}{\\sqrt[3]{4}}$",
+    "formal_statement": "theorem lean_workbook_plus_93 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) : (a^2 / b^2 + b / (a + 3 * b)) ≥ 6 - 9 / (4:ℝ)^(1/3)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem lb : ∀ a b, 0 < a → 0 < b → (a ^ 2 / b ^ 2 + b / (a + 3 * b)) ≥ 6 - 9 / (√[3] 4) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_93",
+    "natural_language_statement": "Let $a,b>0$. Prove that $\\frac{a^2}{b^2}+\\frac{b}{a+3b}\\geq 6-\\frac{9}{\\sqrt[3]{4}}$",
+    "formal_statement": "theorem lean_workbook_plus_93 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) : (a^2 / b^2 + b / (a + 3 * b)) ≥ 6 - 9 / (4:ℝ)^(1/3)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem lb : ∀ a b, 0 < a → 0 < b → (a ^ 2 / b ^ 2 + b / (a + 3 * b)) ≥ 6 - 9 / (√[3] 4) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_99",
+    "natural_language_statement": "Let $a;b;c \\geq 0$ and $ab+bc+ca >0$ Prove: $\\sqrt[4]{\\frac{a}{b+c}}+\\sqrt[4]{\\frac{b}{a+c}}+\\sqrt[4]{\\frac{c}{a+b}}\\geq2$",
+    "formal_statement": "theorem lean_workbook_plus_99 (a b c : ℝ) (hab : a ≥ 0 ∧ b ≥ 0 ∧ c ≥ 0) (h : a * b + b * c + c * a > 0) : (a / (b + c))^(1 / 4) + (b / (a + c))^(1 / 4) + (c / (a + b))^(1 / 4) ≥ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem natural_language_problem : \n∀(a b c : ℝ), a ≥ 0 → b ≥ 0 → c ≥ 0 → a * b + b * c + c * a > 0 → (√[4] ((a : ℝ) / (b + c)) + √[4] ((b : ℝ) / (a + c)) + √[4] ((c : ℝ) / (a + b)) ≥ 2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_106",
+    "natural_language_statement": "Since $ (a+b+c)^{2}=(a+2b)(a+2c)+(b-c)^{2}$ it follows that \\n $ \\frac{a+b+c}{a+2c}=\\frac{a+2b}{a+b+c}+\\frac{(b-c)^{2}}{(a+2c)(a+b+c)}$",
+    "formal_statement": "theorem lean_workbook_plus_106 :  ∀ a b c : ℝ, (a + b + c) ^ 2 = (a + 2 * b) * (a + 2 * c) + (b - c) ^ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem main : \n∀ (a b c : ℚ), \n(a + b + c) / (a + 2 * c) = ((a + 2 * b) / (a + b + c)) + (((b - c)^2) / ((a + 2 * c) * (a + b + c))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_117",
+    "natural_language_statement": "prove that: \\n $ \\sqrt [110]{4ab(a + b)} + \\sqrt [110]{4cb(b + c)} + \\sqrt [110]{4ca(c + a)} \\leq 3\\sqrt [110]{(a + b)(b + c)(c + a)}$ \\n where $a, b, c$ are positive real numbers.",
+    "formal_statement": "theorem lean_workbook_plus_117 (a b c : ℝ) (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) : (4 * a * b * (a + b))^(1 / 110) + (4 * b * c * (b + c))^(1 / 110) + (4 * c * a * (c + a))^(1 / 110) ≤ 3 * ((a + b) * (b + c) * (c + a))^(1 / 110)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem nth_root_inequality (a b c : ℝ) (hab habc hac : 0 < a + b ∧ 0 < b + c ∧ 0 < c + a) : (√[110] (4 * a * b * (a + b)) + √[110] (4 * c * b * (b + c)) + √[110] (4 * c * a * (c + a)) ≤ 3 * √[110] ((a + b) * (b + c) * (c + a))) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_125",
+    "natural_language_statement": "If the polynom $ ax^{3} + bx^{2} + cx + d$ is divisble by 5 for all x prove that $ 5|a,b,c,d$",
+    "formal_statement": "theorem lean_workbook_plus_125 (a b c d : ℤ) (h : ∀ x, 5 ∣ a * x ^ 3 + b * x ^ 2 + c * x + d) : 5 ∣ a ∧ 5 ∣ b ∧ 5 ∣ c ∧ 5 ∣ d   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem div_by_five {a b c d : ℤ} (h : ∀ x, 5 ∣ a * x^3 + b * x^2 + c * x + d) : 5 ∣ a ∧ 5 ∣ b ∧ 5 ∣ c ∧ 5 ∣ d := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_125",
+    "natural_language_statement": "If the polynom $ ax^{3} + bx^{2} + cx + d$ is divisble by 5 for all x prove that $ 5|a,b,c,d$",
+    "formal_statement": "theorem lean_workbook_plus_125 (a b c d : ℤ) (h : ∀ x, 5 ∣ a * x ^ 3 + b * x ^ 2 + c * x + d) : 5 ∣ a ∧ 5 ∣ b ∧ 5 ∣ c ∧ 5 ∣ d   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem div_by_five {a b c d : ℤ} (h : ∀ x, 5 ∣ a * x^3 + b * x^2 + c * x + d) : 5 ∣ a ∧ 5 ∣ b ∧ 5 ∣ c ∧ 5 ∣ d := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_125",
+    "natural_language_statement": "If the polynom $ ax^{3} + bx^{2} + cx + d$ is divisble by 5 for all x prove that $ 5|a,b,c,d$",
+    "formal_statement": "theorem lean_workbook_plus_125 (a b c d : ℤ) (h : ∀ x, 5 ∣ a * x ^ 3 + b * x ^ 2 + c * x + d) : 5 ∣ a ∧ 5 ∣ b ∧ 5 ∣ c ∧ 5 ∣ d   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem div_by_five {a b c d : ℤ} (h : ∀ x, 5 ∣ a * x^3 + b * x^2 + c * x + d) : 5 ∣ a ∧ 5 ∣ b ∧ 5 ∣ c ∧ 5 ∣ d := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_128",
+    "natural_language_statement": "Prove that $ 6\\cdot 4^n\\equiv 6\\pmod{9}$.",
+    "formal_statement": "theorem lean_workbook_plus_128 : ∀ n:ℕ, 6 * 4 ^ n ≡ 6 [ZMOD 9]   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem mod_9_equivalence : ∀ n : ℕ, 6 * (4 ^ n) ≡ 6 (mod 9) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_128",
+    "natural_language_statement": "Prove that $ 6\\cdot 4^n\\equiv 6\\pmod{9}$.",
+    "formal_statement": "theorem lean_workbook_plus_128 : ∀ n:ℕ, 6 * 4 ^ n ≡ 6 [ZMOD 9]   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem mod_9_equivalence : ∀ n : ℕ, 6 * (4 ^ n) ≡ 6 (mod 9) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_128",
+    "natural_language_statement": "Prove that $ 6\\cdot 4^n\\equiv 6\\pmod{9}$.",
+    "formal_statement": "theorem lean_workbook_plus_128 : ∀ n:ℕ, 6 * 4 ^ n ≡ 6 [ZMOD 9]   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem mod_9_equivalence : ∀ n : ℕ, 6 * (4 ^ n) ≡ 6 (mod 9) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_130",
+    "natural_language_statement": "$f(x) = \\left\\{\\begin{aligned} &0 &&, \\: 0 \\le x \\le \\frac{1}{3}\\\\ &x-\\frac{1}{3} &&, \\frac{1}{3} < x \\le 1 \\end{aligned} \\right.$",
+    "formal_statement": "theorem lean_workbook_plus_130 (x : ℝ) (f : ℝ → ℝ) (hf: f x = if x ∈ Set.Icc 0 (1/3) then 0 else x - 1/3) : f x = if x ∈ Set.Icc 0 (1/3) then 0 else x - 1/3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem f_x_le_one : ∀ (x : ℝ), 0 ≤ x ∧ x ≤ 1 → f(x) = if 0 ≤ x ∧ x ≤ 1/3 then 0 else x - 1/3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_135",
+    "natural_language_statement": "$\\frac{4}{3}a^2 + \\frac{8}{3}b^2 + 8ac + 12c^2 \\geq 0$",
+    "formal_statement": "theorem lean_workbook_plus_135 (a b c : ℝ) : (4/3 * a ^ 2 + 8/3 * b ^ 2 + 8 * a * c + 12 * c ^ 2) ≥ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem geq_zero : ∀ a b c, (4/3 * a^2 + 8/3 * b^2 + 8 * a * c + 12 * c^2) >= 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_137",
+    "natural_language_statement": "Prove that $\\ln(e^{\\pi})$ is equal to $\\pi$.",
+    "formal_statement": "theorem lean_workbook_plus_137 : Real.log (Real.exp π) = π   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem ln_e_pi_eq_pi : ln (exp π) = π := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_138",
+    "natural_language_statement": "By Trivial Inequality, $x \\in \\mathbb{R} \\implies x^2 \\ge 0$",
+    "formal_statement": "theorem lean_workbook_plus_138 (x : ℝ) : x ^ 2 ≥ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem trivial_inequality (x : ℝ) : x * x ≥ 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_139",
+    "natural_language_statement": "If $m$ is a multiple of $n$ , then $m$ can be expressed as $m = nx$ where $x$ is an integer. Since $0$ is an integer, then yes you would consider $0$ a multiple of all naturals.",
+    "formal_statement": "theorem lean_workbook_plus_139 :\n  ∀ m n, m % n = 0 → ∃ x, m = n * x   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem mul_divides {m n : ℕ} (h : m ∣ n) : ∃ x : ℤ, m = n * x := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_140",
+    "natural_language_statement": "Prove $x^2 + x + y^2 + y + 1 \\geq x y$ for all real x,y",
+    "formal_statement": "theorem lean_workbook_plus_140 (x y: ℝ): x ^ 2 + x + y ^ 2 + y + 1 ≥ x * y   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem geq : ∀ (x y : ℝ), x * x + x + y * y + y + 1 ≥ x * y := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_143",
+    "natural_language_statement": "Solution $\\frac{1}{1+1}=\\frac12$",
+    "formal_statement": "theorem lean_workbook_plus_143 (h : 1 + 1 = 2) : 1 / (1 + 1) = 1 / 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem solution_one_plus_one : (1 + 1)⁻¹ = 1/2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_147",
+    "natural_language_statement": "If the next relation holds for every real numbers x,y : $f(x+y)=f(x-y)$ then we can conclude that f is constant?",
+    "formal_statement": "theorem lean_workbook_plus_147 (f : ℝ → ℝ) (hf: ∀ x y : ℝ, f (x + y) = f (x - y)) : ∃ a :ℝ, ∀ x : ℝ, f x = a   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem constant_iff_symmetric {f : ℝ → ℝ} (h : ∀ x y, f (x + y) = f (x - y)) : (∀ x, f x = f 0) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_147",
+    "natural_language_statement": "If the next relation holds for every real numbers x,y : $f(x+y)=f(x-y)$ then we can conclude that f is constant?",
+    "formal_statement": "theorem lean_workbook_plus_147 (f : ℝ → ℝ) (hf: ∀ x y : ℝ, f (x + y) = f (x - y)) : ∃ a :ℝ, ∀ x : ℝ, f x = a   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem constant_iff_symmetric {f : ℝ → ℝ} (h : ∀ x y, f (x + y) = f (x - y)) : (∀ x, f x = f 0) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_162",
+    "natural_language_statement": "Prove that \\n\\n $\\cos(a+b) \\sin b - \\cos (a+c) \\sin c = \\sin(a+b) \\cos b - \\sin (a+c) \\cos c$ .",
+    "formal_statement": "theorem lean_workbook_plus_162  (a b c : ℝ) :\n  Real.cos (a + b) * Real.sin b - Real.cos (a + c) * Real.sin c\n    = Real.sin (a + b) * Real.cos b - Real.sin (a + c) * Real.cos c   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_add_sin_subtract_eq : \n∀ a b c, \ncos (a + b) * sin b - cos (a + c) * sin c = \nsin (a + b) * cos b - sin (a + c) * cos c := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_162",
+    "natural_language_statement": "Prove that \\n\\n $\\cos(a+b) \\sin b - \\cos (a+c) \\sin c = \\sin(a+b) \\cos b - \\sin (a+c) \\cos c$ .",
+    "formal_statement": "theorem lean_workbook_plus_162  (a b c : ℝ) :\n  Real.cos (a + b) * Real.sin b - Real.cos (a + c) * Real.sin c\n    = Real.sin (a + b) * Real.cos b - Real.sin (a + c) * Real.cos c   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_add_sin_subtract_eq : \n∀ a b c, \ncos (a + b) * sin b - cos (a + c) * sin c = \nsin (a + b) * cos b - sin (a + c) * cos c := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_162",
+    "natural_language_statement": "Prove that \\n\\n $\\cos(a+b) \\sin b - \\cos (a+c) \\sin c = \\sin(a+b) \\cos b - \\sin (a+c) \\cos c$ .",
+    "formal_statement": "theorem lean_workbook_plus_162  (a b c : ℝ) :\n  Real.cos (a + b) * Real.sin b - Real.cos (a + c) * Real.sin c\n    = Real.sin (a + b) * Real.cos b - Real.sin (a + c) * Real.cos c   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_add_sin_subtract_eq : \n∀ a b c, \ncos (a + b) * sin b - cos (a + c) * sin c = \nsin (a + b) * cos b - sin (a + c) * cos c := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_162",
+    "natural_language_statement": "Prove that \\n\\n $\\cos(a+b) \\sin b - \\cos (a+c) \\sin c = \\sin(a+b) \\cos b - \\sin (a+c) \\cos c$ .",
+    "formal_statement": "theorem lean_workbook_plus_162  (a b c : ℝ) :\n  Real.cos (a + b) * Real.sin b - Real.cos (a + c) * Real.sin c\n    = Real.sin (a + b) * Real.cos b - Real.sin (a + c) * Real.cos c   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem cos_add_sin_subtract_eq : \n∀ a b c, \ncos (a + b) * sin b - cos (a + c) * sin c = \nsin (a + b) * cos b - sin (a + c) * cos c := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_170",
+    "natural_language_statement": "$\\frac{ab+bc+ca}{4} \\ge (s-b)(s-c)+(s-a)(s-b)+(s-c)(s-a)$",
+    "formal_statement": "theorem lean_workbook_plus_170 {a b c s : ℝ} (hs : s = (a + b + c) / 2) : (a * b + b * c + c * a) / 4 ≥ (s - b) * (s - c) + (s - a) * (s - b) + (s - c) * (s - a)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem natural_language_problem : ∀ a b c s, (a * b + b * c + c * a) / 4 ≥ (s - b) * (s - c) + (s - a) * (s - b) + (s - c) * (s - a) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_170",
+    "natural_language_statement": "$\\frac{ab+bc+ca}{4} \\ge (s-b)(s-c)+(s-a)(s-b)+(s-c)(s-a)$",
+    "formal_statement": "theorem lean_workbook_plus_170 {a b c s : ℝ} (hs : s = (a + b + c) / 2) : (a * b + b * c + c * a) / 4 ≥ (s - b) * (s - c) + (s - a) * (s - b) + (s - c) * (s - a)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem natural_language_problem : ∀ a b c s, (a * b + b * c + c * a) / 4 ≥ (s - b) * (s - c) + (s - a) * (s - b) + (s - c) * (s - a) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_172",
+    "natural_language_statement": "prove that: $\\frac{2a^2-bc}{b^2-bc+c^2}+\\frac{2b^2-ac}{a^2-ac+c^2}+\\frac{2c^2-ab}{a^2-ab+b^2}\\geq 3$",
+    "formal_statement": "theorem lean_workbook_plus_172 : ∀ a b c : ℝ, (2 * a ^ 2 - b * c) / (b ^ 2 - b * c + c ^ 2) + (2 * b ^ 2 - a * c) / (a ^ 2 - a * c + c ^ 2) + (2 * c ^ 2 - a * b) / (a ^ 2 - a * b + b ^ 2) ≥ 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem main : ∀ a b c, (2*a^2 - b*c)/(b^2 - b*c + c^2) + (2*b^2 - a*c)/(a^2 - a*c + c^2) + (2*c^2 - a*b)/(a^2 - a*b + b^2) ≥ 3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_172",
+    "natural_language_statement": "prove that: $\\frac{2a^2-bc}{b^2-bc+c^2}+\\frac{2b^2-ac}{a^2-ac+c^2}+\\frac{2c^2-ab}{a^2-ab+b^2}\\geq 3$",
+    "formal_statement": "theorem lean_workbook_plus_172 : ∀ a b c : ℝ, (2 * a ^ 2 - b * c) / (b ^ 2 - b * c + c ^ 2) + (2 * b ^ 2 - a * c) / (a ^ 2 - a * c + c ^ 2) + (2 * c ^ 2 - a * b) / (a ^ 2 - a * b + b ^ 2) ≥ 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem main : ∀ a b c, (2*a^2 - b*c)/(b^2 - b*c + c^2) + (2*b^2 - a*c)/(a^2 - a*c + c^2) + (2*c^2 - a*b)/(a^2 - a*b + b^2) ≥ 3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_176",
+    "natural_language_statement": "Prove that $4s^2-21s+27\\le 0$ for $\\frac{9}{4}\\le s\\le 3$",
+    "formal_statement": "theorem lean_workbook_plus_176 (s : ℝ) (hs : 9 / 4 ≤ s ∧ s ≤ 3) : 4 * s ^ 2 - 21 * s + 27 ≤ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem leq : ∀ (s : ℝ), (9/4 ≤ s ∧ s ≤ 3) → 4 * s ^ 2 - 21 * s + 27 ≤ 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_187",
+    "natural_language_statement": "$$x = \\frac {4-2\\sqrt{3}}2 = 2 -\\sqrt{3}$$",
+    "formal_statement": "theorem lean_workbook_plus_187 (x : ℝ) (hx : x = (4 - 2 * Real.sqrt 3) / 2) : x = 2 - Real.sqrt 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem sqrt_three_equation : (4 - 2 * sqrt 3) / 2 = 2 - sqrt 3 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_189",
+    "natural_language_statement": "Prove that if $f(av)=af(v)$ and $f(v+w)=f(v)+f(w)$ for all $a, v, w \\in \\mathbb{R}$, then $f$ is a linear function of the form $f(x) = cx$ for some constant $c$.",
+    "formal_statement": "theorem lean_workbook_plus_189 (f : ℝ → ℝ) (hf: ∀ a v w : ℝ, f (a * v) = a * f v ∧ f (v + w) = f v + f w) : ∃ c :ℝ, ∀ x : ℝ, f x = c * x   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem linear_function {f : ℝ → ℝ} (h1 : ∀ (a v : ℝ), f (a * v) = a * f v) (h2 : ∀ (v w : ℝ), f (v + w) = f v + f w) : ∃ c, ∀ x, f x = c * x := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_189",
+    "natural_language_statement": "Prove that if $f(av)=af(v)$ and $f(v+w)=f(v)+f(w)$ for all $a, v, w \\in \\mathbb{R}$, then $f$ is a linear function of the form $f(x) = cx$ for some constant $c$.",
+    "formal_statement": "theorem lean_workbook_plus_189 (f : ℝ → ℝ) (hf: ∀ a v w : ℝ, f (a * v) = a * f v ∧ f (v + w) = f v + f w) : ∃ c :ℝ, ∀ x : ℝ, f x = c * x   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem linear_function {f : ℝ → ℝ} (h1 : ∀ (a v : ℝ), f (a * v) = a * f v) (h2 : ∀ (v w : ℝ), f (v + w) = f v + f w) : ∃ c, ∀ x, f x = c * x := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_189",
+    "natural_language_statement": "Prove that if $f(av)=af(v)$ and $f(v+w)=f(v)+f(w)$ for all $a, v, w \\in \\mathbb{R}$, then $f$ is a linear function of the form $f(x) = cx$ for some constant $c$.",
+    "formal_statement": "theorem lean_workbook_plus_189 (f : ℝ → ℝ) (hf: ∀ a v w : ℝ, f (a * v) = a * f v ∧ f (v + w) = f v + f w) : ∃ c :ℝ, ∀ x : ℝ, f x = c * x   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem linear_function {f : ℝ → ℝ} (h1 : ∀ (a v : ℝ), f (a * v) = a * f v) (h2 : ∀ (v w : ℝ), f (v + w) = f v + f w) : ∃ c, ∀ x, f x = c * x := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_193",
+    "natural_language_statement": "Consider $(a^3+b^3+c^3) - (a+b+c) = a(a-1)(a+1) + b(b-1)(b+1) + c(c-1)(c+1)$",
+    "formal_statement": "theorem lean_workbook_plus_193 : ∀ a b c : ℤ, (a^3 + b^3 + c^3) - (a + b + c) = a*(a - 1)*(a + 1) + b*(b - 1)*(b + 1) + c*(c - 1)*(c + 1)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_eq_abc : ∀ a b c, (a^3 + b^3 + c^3) - (a + b + c) = a * (a - 1) * (a + 1) + b * (b - 1) * (b + 1) + c * (c - 1) * (c + 1) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_194",
+    "natural_language_statement": "The area of the rectangle is $2x(9-x^2)$, where x is positive, since the dimensions are $2x$ in width and $9-x^2$ in height. We are given that it is equal to 20. Therefore, $x(9-x^2)=10$, and $x^3-9x+10=0$.",
+    "formal_statement": "theorem lean_workbook_plus_194 (x : ℝ) (hx : x > 0) (h : x * (9 - x^2) = 10) : x^3 - 9 * x + 10 = 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem rectangle_area_eq_10 : x * (9 - x ^ 2) = 10 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_196",
+    "natural_language_statement": "Show that $a^{2}+b^{2}=-2ab$ if $a+b=0$.",
+    "formal_statement": "theorem lean_workbook_plus_196 : a + b = 0 → a^2 + b^2 = -2 * a * b   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem ab_eq : ∀ (a b : ℤ), a + b = 0 → a^2 + b^2 = -2 * a * b := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_196",
+    "natural_language_statement": "Show that $a^{2}+b^{2}=-2ab$ if $a+b=0$.",
+    "formal_statement": "theorem lean_workbook_plus_196 : a + b = 0 → a^2 + b^2 = -2 * a * b   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem ab_eq : ∀ (a b : ℤ), a + b = 0 → a^2 + b^2 = -2 * a * b := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_220",
+    "natural_language_statement": "=2^{2018}+\\frac{(2^{2019}-1)(2^{2020}-1)-(2^{2018}-1)(2^{2019}-1)}{3}$",
+    "formal_statement": "theorem lean_workbook_plus_220 (h₁ : 0 < 2018) : 2^2018 + ((2^2019 - 1) * (2^2020 - 1) - (2^2018 - 1) * (2^2019 - 1)) / 3 = 2^2018 + (2^4038 - 2^2019 - 2^4037 + 2^2018) / 3   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem nat_power_sum : \n= (2^2018 * 3) + ((2^2019 - 1) * (2^2020 - 1)) - ((2^2018 - 1) * (2^2019 - 1)) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_222",
+    "natural_language_statement": "Numbers of the form $4k+2$ as well as $1,4$ can't be generated. Hence they must be on the board. We will prove that, with these numbers, we can generate all of the other ones till $1000$ . Notice that, $3=2^2-1, 5= 3^2-2^2, 7=4^2-3^2 \\cdots$ Hence using these identities $$4k=(k+1)^2-(k-1)^2$$ $$4k+1=(2k+1)^2-(2k)^2$$ $$4k+3=(2k+2)^2-(2k+1)^2$$ we can inductively generate all of the remaining numbers. Hence the minimum number of positive integers on the board has to be $252$ .",
+    "formal_statement": "theorem lean_workbook_plus_222 :\n  IsLeast {n : ℕ | ∀ k : ℕ, 1 ≤ k ∧ k ≤ 1000 → ∃ a b : ℕ, a^2 - b^2 = k ∨ a^2 + b^2 = k ∨ 2 * a^2 = k ∨ 2 * b^2 = k} 252   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem min_board_size : ∀ k, 4*k + 2 ≤ 1000 → ∃ n, 1 ≤ n ∧ (n = 4*k + 2 ∨ n = 1 ∨ n = 4) ∨ (∀ i, 3 ≤ i → i = (k+1)^2 - (k-1)^2 ∨ i = (2*k+1)^2 - (2*k)^2 ∨ i = (2*k+2)^2 - (2*k+1)^2):= by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_232",
+    "natural_language_statement": "Let $a, b>0$ and $ab+\\frac{1}{ab}=6.$ Prove that $(a+1)( b+1) \\geq 2$",
+    "formal_statement": "theorem lean_workbook_plus_232 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) (hab : a * b + 1 / (a * b) = 6) : (a + 1) * (b + 1) ≥ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem geq_two : a + 1 * (b + 1) ≥ 2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_232",
+    "natural_language_statement": "Let $a, b>0$ and $ab+\\frac{1}{ab}=6.$ Prove that $(a+1)( b+1) \\geq 2$",
+    "formal_statement": "theorem lean_workbook_plus_232 (a b : ℝ) (ha : 0 < a) (hb : 0 < b) (hab : a * b + 1 / (a * b) = 6) : (a + 1) * (b + 1) ≥ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem geq_two : a + 1 * (b + 1) ≥ 2 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_238",
+    "natural_language_statement": "Prove that for all positive reals $x_1, x_2$, the following inequality holds:\\n\\n $x_1 + x_2 \\geq 2\\sqrt{x_1x_2}$",
+    "formal_statement": "theorem lean_workbook_plus_238 (x_1 x_2 : ℝ) (hx_1 : 0 < x_1) (hx_2 : 0 < x_2) : x_1 + x_2 ≥ 2 * Real.sqrt (x_1 * x_2)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem pos_reals_sqrt_inequality (x1 x2 : ℝ≥0) : x1 + x2 ≥ 2 * sqrt (x1 * x2) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_238",
+    "natural_language_statement": "Prove that for all positive reals $x_1, x_2$, the following inequality holds:\\n\\n $x_1 + x_2 \\geq 2\\sqrt{x_1x_2}$",
+    "formal_statement": "theorem lean_workbook_plus_238 (x_1 x_2 : ℝ) (hx_1 : 0 < x_1) (hx_2 : 0 < x_2) : x_1 + x_2 ≥ 2 * Real.sqrt (x_1 * x_2)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem pos_reals_sqrt_inequality (x1 x2 : ℝ≥0) : x1 + x2 ≥ 2 * sqrt (x1 * x2) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_244",
+    "natural_language_statement": "If $a,b,c$ are positive numbers such that $abc=1$ , then \\n\\n $\\frac 1{\\sqrt[4]{a^{2}+79a+1}}+\\frac 1{\\sqrt[4]{b^{2}+79b+1}}+\\frac 1{\\sqrt[4]{c^{2}+79c+1}}\\ge 1$ .",
+    "formal_statement": "theorem lean_workbook_plus_244 (a b c : ℝ) (habc : a * b * c = 1) : (1 / (a^2 + 79 * a + 1)^(1 / 4) + 1 / (b^2 + 79 * b + 1)^(1 / 4) + 1 / (c^2 + 79 * c + 1)^(1 / 4)) ≥ 1   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem pos_ineq : ∀ a b c, 0 < a → 0 < b → 0 < c → a * b * c = 1 → (∑ (i : ℕ), 1 / sqrt[4] ((i + 1) ^ 2 + 79 * (i + 1) + 1)) ≥ 1 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_246",
+    "natural_language_statement": "The equation $x+y+z+w = 222$ can be transform into (1) by setting $x_{1}= x-1$ , $x_{2}= y-1$ , $x_{3}= z-1$ and $x_{4}= w-1$ . Making these substitutions, the result is the Diophantine equation $\\sum_{i=1}^{4}\\: x_{i}\\;=\\; 218$ . Hence the number of solutions is $A(4,218) = C(4+218-1,218) = C(221,218) = \\frac{221 \\cdot 220 \\cdot 219}{6}= 1774630.$",
+    "formal_statement": "theorem lean_workbook_plus_246 (Nat.choose (4+218-1) 218) = 1774630   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem diophantine_solution : \nC(221,218) = (221 * 220 * 219)/6 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_250",
+    "natural_language_statement": "For any $k\\in \\mathbb{R}$, show that $f(x)=kx$ is a solution.",
+    "formal_statement": "theorem lean_workbook_plus_250 (k : ℝ) (f : ℝ → ℝ) (hf: f = fun x ↦ k * x) : f x = k * x   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem solution {k : ℝ} (x : ℝ) : f x = k * x := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_263",
+    "natural_language_statement": "For $n=4$ we have: $a_4 = \\frac{13}{6}$ and $\\left \\lfloor a_4^2 \\right \\rfloor = \\left \\lfloor \\frac{13^2}{6^2} \\right \\rfloor = 4$",
+    "formal_statement": "theorem lean_workbook_plus_263 :\n  Int.floor ((13 : ℝ) / 6)^2 = 4   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem floor_a4_squared_eq_four : ∀ n, n = 4 → a4 = 13/6 ∧ ⌊ (a4)^2 ⌋ = 4 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_263",
+    "natural_language_statement": "For $n=4$ we have: $a_4 = \\frac{13}{6}$ and $\\left \\lfloor a_4^2 \\right \\rfloor = \\left \\lfloor \\frac{13^2}{6^2} \\right \\rfloor = 4$",
+    "formal_statement": "theorem lean_workbook_plus_263 :\n  Int.floor ((13 : ℝ) / 6)^2 = 4   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem floor_a4_squared_eq_four : ∀ n, n = 4 → a4 = 13/6 ∧ ⌊ (a4)^2 ⌋ = 4 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_271",
+    "natural_language_statement": "Show that $1-8\\sin{x}\\sin{y}\\cos{(x+y)}=(2\\cos{(x+y)}-\\cos{(x-y)})^2+\\sin^2{(x-y)}$.",
+    "formal_statement": "theorem lean_workbook_plus_271 (x y : ℝ) : (1 - 8 * Real.sin x * Real.sin y * Real.cos (x + y)) = (2 * Real.cos (x + y) - Real.cos (x - y)) ^ 2 + Real.sin (x - y) ^ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem sinxy_cosxy_eq : \n(1 - 8 * sin x * sin y * cos (x + y)) = ((2 * cos (x + y) - cos (x - y))^2 + sin^2 (x - y)) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_271",
+    "natural_language_statement": "Show that $1-8\\sin{x}\\sin{y}\\cos{(x+y)}=(2\\cos{(x+y)}-\\cos{(x-y)})^2+\\sin^2{(x-y)}$.",
+    "formal_statement": "theorem lean_workbook_plus_271 (x y : ℝ) : (1 - 8 * Real.sin x * Real.sin y * Real.cos (x + y)) = (2 * Real.cos (x + y) - Real.cos (x - y)) ^ 2 + Real.sin (x - y) ^ 2   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem sinxy_cosxy_eq : \n(1 - 8 * sin x * sin y * cos (x + y)) = ((2 * cos (x + y) - cos (x - y))^2 + sin^2 (x - y)) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_279",
+    "natural_language_statement": "If $a,b,c,d$ are nonnegative real numbers, then $(a + b + c + d)^{3}\\\\geq 4[a(c + d)^{2} + b(d + a)^{2} + c(a + b)^{2} + d(b + c)^{2}]$",
+    "formal_statement": "theorem lean_workbook_plus_279 (a b c d : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hd : 0 ≤ d) : (a + b + c + d) ^ 3 ≥ 4 * (a * (c + d) ^ 2 + b * (d + a) ^ 2 + c * (a + b) ^ 2 + d * (b + c) ^ 2)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem strong_inequality (a b c d : ℝ) (hab : 0 ≤ a) (hbc : 0 ≤ b) (hcd : 0 ≤ c) (hda : 0 ≤ d) :\n(a + b + c + d)^3 ≥ 4 * [a * (c + d)^2 + b * (d + a)^2 + c * (a + b)^2 + d * (b + c)^2] := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_279",
+    "natural_language_statement": "If $a,b,c,d$ are nonnegative real numbers, then $(a + b + c + d)^{3}\\\\geq 4[a(c + d)^{2} + b(d + a)^{2} + c(a + b)^{2} + d(b + c)^{2}]$",
+    "formal_statement": "theorem lean_workbook_plus_279 (a b c d : ℝ) (ha : 0 ≤ a) (hb : 0 ≤ b) (hc : 0 ≤ c) (hd : 0 ≤ d) : (a + b + c + d) ^ 3 ≥ 4 * (a * (c + d) ^ 2 + b * (d + a) ^ 2 + c * (a + b) ^ 2 + d * (b + c) ^ 2)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem strong_inequality (a b c d : ℝ) (hab : 0 ≤ a) (hbc : 0 ≤ b) (hcd : 0 ≤ c) (hda : 0 ≤ d) :\n(a + b + c + d)^3 ≥ 4 * [a * (c + d)^2 + b * (d + a)^2 + c * (a + b)^2 + d * (b + c)^2] := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_289",
+    "natural_language_statement": "Inequality follows from these three am-gm inequalities. \\n $ a^4b^2+b^4c^2 \\geq 2b^3a^2c$ \\n $ a^4b^2+c^4a^2\\geq 2a^3c^2b$ \\n $ b^4c^2+c^4a^2\\geq 2c^3b^2a$ .",
+    "formal_statement": "theorem lean_workbook_plus_289 (a b c : ℝ) :\n  a^4 * b^2 + b^4 * c^2 ≥ 2 * b^3 * a^2 * c ∧\n  a^4 * b^2 + c^4 * a^2 ≥ 2 * a^3 * c^2 * b ∧\n  b^4 * c^2 + c^4 * a^2 ≥ 2 * c^3 * b^2 * a   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem abc_inequality : a^4 * b^2 + b^4 * c^2 + c^4 * a^2 >= 2 * (a^3 * c^2 * b + a^2 * b^3 * c + c^3 * b^2 * a) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_291",
+    "natural_language_statement": "Let A be a matrix nXn with $a_{ij}\\ge{0}$ for every i,j=1,2,...,n and $\\sum_{j=1}^{n}a_{ij}=1$ for every i=1,2,..,n. Show that if a is an eigenvalue of A then $|a|\\leq{1}$",
+    "formal_statement": "theorem lean_workbook_plus_291 (n : ℕ) (hn : 0 < n) (a : Matrix (Fin n) (Fin n) ℝ) (ha : ∀ i j, 0 ≤ a i j) (h : ∀ i, ∑ j, a i j = 1) (a_eig : ∃ v : Fin n → ℝ, ∃ l : ℝ, a.mulVec v = l • v) : ∃ v : Fin n → ℝ, ∃ l : ℝ, a.mulVec v = l • v ∧ l ≤ 1 ∧ -1 ≤ l   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem eigenvalue_bound : ∀ (n : ℕ) (A : matrix n n ℝ), (∀ i j, 0 ≤ A i j ∧ ∑ (j := 0) (n + 1) (A i j) = 1) → (∃ a, eigenvalue A a) → |a| ≤ 1 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_296",
+    "natural_language_statement": "Prove that $5^n +9<6^n$ for all $n\\geq2$",
+    "formal_statement": "theorem lean_workbook_plus_296 : ∀ n ≥ 2, (5 ^ n + 9 < 6 ^ n)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem five_plus_nine_less_than_six_to_the_n : ∀ n ≥ 2, 5 ^ n + 9 < 6 ^ n := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_296",
+    "natural_language_statement": "Prove that $5^n +9<6^n$ for all $n\\geq2$",
+    "formal_statement": "theorem lean_workbook_plus_296 : ∀ n ≥ 2, (5 ^ n + 9 < 6 ^ n)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem five_plus_nine_less_than_six_to_the_n : ∀ n ≥ 2, 5 ^ n + 9 < 6 ^ n := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_296",
+    "natural_language_statement": "Prove that $5^n +9<6^n$ for all $n\\geq2$",
+    "formal_statement": "theorem lean_workbook_plus_296 : ∀ n ≥ 2, (5 ^ n + 9 < 6 ^ n)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem five_plus_nine_less_than_six_to_the_n : ∀ n ≥ 2, 5 ^ n + 9 < 6 ^ n := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_298",
+    "natural_language_statement": "This all simplifies to: $\\frac{55*35}{12^7}$",
+    "formal_statement": "theorem lean_workbook_plus_298 :\n  ((55 * 35) / (12^7) : ℚ) = (55 * 35) / (12^7)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem simplify : ℕ → Prop | _ := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_299",
+    "natural_language_statement": "Each number in S is included in 10 different differences. We see that $ 2^{10}$ is counted as positive in each of the 10 differences. Thus, the total sum produced from the $ 2^{10}$ s is $ 10{}^2{}^10$ . $ 2^9$ is positive in 9 differences, and counted as negative in 1. Thus, the total sum produced from the $ 2^9$ s is $ 9*2^9-2*9=8*2^9$ . We can continue, and we find N to be $ 10*2^10+8*2^9+6*2^8+...-8{}^2{}^1-10*2^0$ . Taking this mod 1000, we find $ N \\equiv 240+96+536+512+128-32-32-24-16-10 \\equiv \\boxed{398} \\pmod{1000}$",
+    "formal_statement": "theorem lean_workbook_plus_299  (n : ℕ)\n  (h₀ : n = 10 * 2^10 + 8 * 2^9 + 6 * 2^8 + 4 * 2^7 + 2 * 2^6 - 8 * 2^5 - 10 * 2^4 - 12 * 2^3 - 14 * 2^2 - 16 * 2^1 - 18 * 2^0) :\n  n % 1000 = 398   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem S_mod_1000 : \nN ≡ 240 + 96 + 536 + 512 + 128 - 32 - 32 - 24 - 16 - 10 mod 1000 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_301",
+    "natural_language_statement": " $$ \\frac{a^2+5b^2}{c^2} \\geq \\frac{5}{24}(3\\sqrt[3] 5-21\\sqrt[3] {25}-1) $$",
+    "formal_statement": "theorem lean_workbook_plus_301 (a b c : ℝ) : (a^2 + 5 * b^2) / c^2 ≥ (5:ℝ) / 24 * (3 * (5:ℝ)^(1 / 3) - 21 * (25:ℝ)^(1 / 3) - 1)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem foo : ∀ a b c, (a^2 + 5*b^2)/c^2 ≥ (5/24)*(3*root(5)^1/3 - 21*root(25)^1/3 - 1) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_301",
+    "natural_language_statement": " $$ \\frac{a^2+5b^2}{c^2} \\geq \\frac{5}{24}(3\\sqrt[3] 5-21\\sqrt[3] {25}-1) $$",
+    "formal_statement": "theorem lean_workbook_plus_301 (a b c : ℝ) : (a^2 + 5 * b^2) / c^2 ≥ (5:ℝ) / 24 * (3 * (5:ℝ)^(1 / 3) - 21 * (25:ℝ)^(1 / 3) - 1)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem foo : ∀ a b c, (a^2 + 5*b^2)/c^2 ≥ (5/24)*(3*root(5)^1/3 - 21*root(25)^1/3 - 1) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_306",
+    "natural_language_statement": "לאחר העברת צדדים נקבל: $y+(1+x+y)^{3}x-(1+x)^{3}(x+y)\\geq 0$",
+    "formal_statement": "theorem lean_workbook_plus_306 : ∀ x y : ℝ, y + (1 + x + y) ^ 3 * x - (1 + x) ^ 3 * (x + y) ≥ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem y_add_1_x_y_cubed_x_sub_1_x_cubed_x_y_ge_zero : ∀ (x y:ℝ), y + (1 + x + y) ^ 3 * x - (1 + x) ^ 3 * (x + y) ≥ 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_306",
+    "natural_language_statement": "לאחר העברת צדדים נקבל: $y+(1+x+y)^{3}x-(1+x)^{3}(x+y)\\geq 0$",
+    "formal_statement": "theorem lean_workbook_plus_306 : ∀ x y : ℝ, y + (1 + x + y) ^ 3 * x - (1 + x) ^ 3 * (x + y) ≥ 0   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem y_add_1_x_y_cubed_x_sub_1_x_cubed_x_y_ge_zero : ∀ (x y:ℝ), y + (1 + x + y) ^ 3 * x - (1 + x) ^ 3 * (x + y) ≥ 0 := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_310",
+    "natural_language_statement": "Determine the intervals of increase and decrease for $f(x)=2sinx +sin 2x$",
+    "formal_statement": "theorem lean_workbook_plus_310 (f : ℝ → ℝ) (f : ℝ → ℝ) (hf: f x = 2 * Real.sin x + Real.sin (2 * x)) : (∀ x y, x < y ∧ f x < f y) ∨ (∀ x y, x < y ∧ f x > f y)   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem f_interval : ∀ x ∈ ℝ, (x ∈ IRR) → ((∃ y < x, f y ≤ f x ∧ ∃ z > x, f z ≤ f x) ∨ (∀ y < x, f y < f x ∧ ∀ z > x, f z < f x)) := by sorry"
+    }
+  },
+  {
+    "id": "lean_workbook_plus_317",
+    "natural_language_statement": "Given $j_1 = -2014$, prove by induction that $j_n = -1007 * 2^n$ for all $n \\in \\mathbb{Z}_+$.",
+    "formal_statement": "theorem lean_workbook_plus_317 (j : ℕ → ℤ) (j_1 : j 0 = -2014) (h : ∀ n, j (n + 1) = 2 * j n) : ∀ n, j n = -1007 * 2 ^ n   :=  by sorry",
+    "output": {
+      "ollama/llama3": "theorem j_ind : ∀ n, n ∈ ℕ → j n = (-1007) * 2 ^ n := by sorry"
+    }
+  }
+]
