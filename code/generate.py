@@ -1,11 +1,9 @@
 import litellm
 import json
 from tqdm import tqdm
-# from dotenv import load_dotenv
-
-# load_dotenv()
 
 def generate(input, output):
+    
     models = [
         "ollama/llama3"
     ]
@@ -34,13 +32,15 @@ def generate(input, output):
             "id": sample['id'],
             "natural_language_statement": sample['natural_language_statement'],
             "formal_statement": sample['formal_statement'],
-            "output": {}
+            "results": {}
         }
     
         prompt = prompt_template.format(natural_language_statement=sample['natural_language_statement'])
         messages = [{"role": "user", "content": prompt}]
 
         for model in models:
+            result["results"][model] = {}
+
             try:
                 response = litellm.completion(
                     model=model,
@@ -49,10 +49,10 @@ def generate(input, output):
                     max_tokens=512
                 )
             
-                result["output"][model] = response.choices[0].message.content
+                result["results"][model]["output"] = response.choices[0].message.content
             
             except Exception as e:
-                result["output"][model] = f"ERROR: {e}"
+                result["results"][model]["output"] = f"ERROR: {e}"
     
         results.append(result)
 
@@ -61,13 +61,3 @@ def generate(input, output):
 
     with open(output, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2, ensure_ascii=False)
-
-    return results   
-
-def main():
-    input = "/home/chen_/project/LLMsLean/code/data/data.json"
-    output = "/home/chen_/project/LLMsLean/code/data/result.json"
-    generate(input, output)
-
-if __name__ == "__main__":
-    main()
