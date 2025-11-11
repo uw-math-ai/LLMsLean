@@ -281,6 +281,8 @@ def verify(input, output):
             for model in models:
                 for attempt in theorem["verification"][model][recent]:
                     if attempt["status"] == "success" and success ==0: success = 1
+            success_count += success
+        
         if total_count > 0:
             print(f"\n{model} Success Rate: {success_count}/{total_count} ({success_count/total_count:.2%})")
 
@@ -288,7 +290,8 @@ def main():
     input = "data/test.json"
     output = "data/test.json"
     model = "ollama/gemma3:12b"
+    verify(output, output)
 
-    
+
 if __name__ == "__main__":
     main()
