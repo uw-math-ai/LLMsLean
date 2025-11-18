@@ -1,0 +1,211 @@
+[
+  {
+    "id": "lean_workbook_plus_2",
+    "natural_language_statement": "Solve for $x$ in the given inequality: $x^2-2x-24<0$",
+    "conversation": [
+      {
+        "turn": 1,
+        "prompt": "Translate the following natural language math problem into a single, complete Lean 4 theorem statement.\n\n        Rules:\n        1. Only output the Lean 4 code.\n        2. Do not provide the proof, any explanation, or any surrounding text (like \"Here is the code:\").\n        3. The statement MUST be a complete theorem, starting with 'theorem' and ending with ':= by sorry'.\n\n        Problem: Solve for $x$ in the given inequality: $x^2-2x-24<0$\n\n        Lean 4 Theorem:",
+        "response": "theorem sq_x_le_24_iff : ∀ x, (x^2 - 2 * x - 24 < 0) := by sorry",
+        "verification": {
+          "status": "success"
+        }
+      }
+    ],
+    "final_status": "success",
+    "summary": {
+      "turns_to_fix": 1,
+      "hardness_score": 0.2
+    }
+  },
+  {
+    "id": "lean_workbook_plus_6",
+    "natural_language_statement": " $\\begin{array}{l}\\left( {{x^2} + 1} \\right)\\left( {{y^2} + 1} \\right)\\left( {{z^2} + 1} \\right) = \\sum {{x^2}} + \\sum {{x^2}{y^2}} + {x^2}{y^2}{z^2} + 1\\\\ = {\\left( {x + y + z} \\right)^2} - 2\\left( {xy + yz + zx} \\right) + {\\left( {xy + yz + zx} \\right)^2} - 2xyz\\left( {x + y + z} \\right) + {x^2}{y^2}{z^2} + 1\\\\ = \\left[ {{{\\left( {x + y + z} \\right)}^2} - 2xyz\\left( {x + y + z} \\right) + {x^2}{y^2}{z^2}} \\right] + \\left[ {{{\\left( {xy + yz + zx} \\right)}^2} - 2\\left( {xy + yz + zx} \\right) + 1} \\right]\\\\ = {\\left( {x + y + z - xyz} \\right)^2} + {\\left( {xy + yz + zx - 1} \\right)^2}\\end{array}$ .",
+    "conversation": [
+      {
+        "turn": 1,
+        "prompt": "Translate the following natural language math problem into a single, complete Lean 4 theorem statement.\n\n        Rules:\n        1. Only output the Lean 4 code.\n        2. Do not provide the proof, any explanation, or any surrounding text (like \"Here is the code:\").\n        3. The statement MUST be a complete theorem, starting with 'theorem' and ending with ':= by sorry'.\n\n        Problem:  $\\begin{array}{l}\\left( {{x^2} + 1} \\right)\\left( {{y^2} + 1} \\right)\\left( {{z^2} + 1} \\right) = \\sum {{x^2}} + \\sum {{x^2}{y^2}} + {x^2}{y^2}{z^2} + 1\\\\ = {\\left( {x + y + z} \\right)^2} - 2\\left( {xy + yz + zx} \\right) + {\\left( {xy + yz + zx} \\right)^2} - 2xyz\\left( {x + y + z} \\right) + {x^2}{y^2}{z^2} + 1\\\\ = \\left[ {{{\\left( {x + y + z} \\right)}^2} - 2xyz\\left( {x + y + z} \\right) + {x^2}{y^2}{z^2}} \\right] + \\left[ {{{\\left( {xy + yz + zx} \\right)}^2} - 2\\left( {xy + yz + zx} \\right) + 1} \\right]\\\\ = {\\left( {x + y + z - xyz} \\right)^2} + {\\left( {xy + yz + zx - 1} \\right)^2}\\end{array}$ .\n\n        Lean 4 Theorem:",
+        "response": "theorem equality : ∀ (x y z : ℚ), ((x^2 + 1) * (y^2 + 1) * (z^2 + 1)) = ((x + y + z)^2 - 2*(xy + yz + zx)*(x + y + z) + (xy + yz + zx)^2 - 2*xyz*(x + y + z) + x^2*y^2*z^2 + 1) := by sorry",
+        "verification": {
+          "status": "success"
+        }
+      }
+    ],
+    "final_status": "success",
+    "summary": {
+      "turns_to_fix": 1,
+      "hardness_score": 0.2
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "conversation": [
+      {
+        "turn": 1,
+        "prompt": "Translate the following natural language math problem into a single, complete Lean 4 theorem statement.\n\n        Rules:\n        1. Only output the Lean 4 code.\n        2. Do not provide the proof, any explanation, or any surrounding text (like \"Here is the code:\").\n        3. The statement MUST be a complete theorem, starting with 'theorem' and ending with ':= by sorry'.\n\n        Problem: Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$\n\n        Lean 4 Theorem:",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ (i : ℕ) (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -a ^ (8 * i)) + (∑ (i : ℕ) (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -b ^ (8 * i))) + (∑ (i : ℕ) (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token at this precedence level; consider parenthesizing the term",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 2,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ (i : ℕ) (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -a ^ (8 * i)) + (∑ (i : ℕ) (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -b ^ (8 * i))) + (∑ (i : ℕ) (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry\n\n                    The Lean compiler returned this error:\n                    unexpected token at this precedence level; consider parenthesizing the term\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ (i : ℕ) ((if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -a ^ (8 * i)) + (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -b ^ (8 * i)) + (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token '+'; expected ')'",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 3,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ (i : ℕ) ((if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -a ^ (8 * i)) + (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -b ^ (8 * i)) + (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else if i = 3 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry\n\n                    The Lean compiler returned this error:\n                    unexpected token '+'; expected ')'\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑' i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -a ^ (8 * i)) + (∑' i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -b ^ (8 * i))) + (∑' i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token 'from'; expected ','",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 4,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑' i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -a ^ (8 * i)) + (∑' i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -b ^ (8 * i))) + (∑' i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry\n\n                    The Lean compiler returned this error:\n                    unexpected token 'from'; expected ','\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -a ^ (8 * i)) + (∑ i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -b ^ (8 * i))) + (∑ i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token 'from'; expected ',' or 'in'",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 5,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -a ^ (8 * i)) + (∑ i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -b ^ (8 * i))) + (∑ i from 0 to 3 (if i = 0 then 1 else if i = 1 then 1 else if i = 2 then 1 else -c ^ (8 * i))) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry\n\n                    The Lean compiler returned this error:\n                    unexpected token 'from'; expected ',' or 'in'\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a ^ 4 + b ^ 4 + c ^ 4 = 1 → (∑ i in range 4, if i = 0 then 1 else -a ^ (8 * i)) + (∑ i in range 4, if i = 0 then 1 else -b ^ (8 * i)) + ( i in range 4, if i = 0 then 1 else -c ^ (8 * i)) ≥ 9 / 8 * (3 ^ (1/4)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token 'in'; expected ')', ',' or ':'",
+          "error_class": "SyntaxError"
+        }
+      }
+    ],
+    "final_status": "failed",
+    "summary": {
+      "turns_to_fix": 5,
+      "hardness_score": 1.0
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "conversation": [
+      {
+        "turn": 1,
+        "prompt": "Translate the following natural language math problem into a single, complete Lean 4 theorem statement.\n\n        Rules:\n        1. Only output the Lean 4 code.\n        2. Do not provide the proof, any explanation, or any surrounding text (like \"Here is the code:\").\n        3. The statement MUST be a complete theorem, starting with 'theorem' and ending with ':= by sorry'.\n\n        Problem: Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$\n\n        Lean 4 Theorem:",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a ∈ set_of_pos_real ∧ b ∈ set_of_pos_real ∧ c ∈ set_of_pos_real ∧ a⁴ + b⁴ + c⁴ = 1 → (∑ (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏ (i : ℕ), 3^(1/4*2^i)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token '⁴'; expected ':=', 'where' or '|'\nApplication type mismatch: In the application\n  c ∈ set_of_pos_real ∧ a\nthe argument\n  a\nhas type\n  ℝ : Type\nbut is expected to have type\n  Prop : Type",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 2,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), a ∈ set_of_pos_real ∧ b ∈ set_of_pos_real ∧ c ∈ set_of_pos_real ∧ a⁴ + b⁴ + c⁴ = 1 → (∑ (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏ (i : ℕ), 3^(1/4*2^i)) := by sorry\n\n                    The Lean compiler returned this error:\n                    unexpected token '⁴'; expected ':=', 'where' or '|'\nApplication type mismatch: In the application\n  c ∈ set_of_pos_real ∧ a\nthe argument\n  a\nhas type\n  ℝ : Type\nbut is expected to have type\n  Prop : Type\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a⁴ + b⁴ + c⁴ = 1 → (∑ (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏ (i : ℕ), 3^(1/4*2^i)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unexpected token '⁴'; expected ':=', 'where' or '|'\nApplication type mismatch: In the application\n  c > 0 ∧ a\nthe argument\n  a\nhas type\n  ℝ : Type\nbut is expected to have type\n  Prop : Type",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 3,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), a > 0 ∧ b > 0 ∧ c > 0 ∧ a⁴ + b⁴ + c⁴ = 1 → (∑ (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏ (i : ℕ), 3^(1/4*2^i)) := by sorry\n\n                    The Lean compiler returned this error:\n                    unexpected token '⁴'; expected ':=', 'where' or '|'\nApplication type mismatch: In the application\n  c > 0 ∧ a\nthe argument\n  a\nhas type\n  ℝ : Type\nbut is expected to have type\n  Prop : Type\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (∑ (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏ (i : ℕ), 3^(1/4*2^i)) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "failed to synthesize\n  Fintype ℕ\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\nfailed to synthesize\n  Fintype ℕ\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.",
+          "error_class": "OtherError"
+        }
+      },
+      {
+        "turn": 4,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_inequality : ∀ (a b c : ℝ), 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (∑ (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏ (i : ℕ), 3^(1/4*2^i)) := by sorry\n\n                    The Lean compiler returned this error:\n                    failed to synthesize\n  Fintype ℕ\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\nfailed to synthesize\n  Fintype ℕ\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_inequality : ∀ (a b c : ℝ), 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (∑' (i : ℕ), (if i = 0 then 1 else if i = 1 then 3 else 4) * ((a^(3*2^i)) / (1 - a^(8*2^i))) + ((b^(3*2^i)) / (1 - b^(8*2^i))) + ((c^(3*2^i)) / (1 - c^(8*2^i)))) ≥ 9/8 * (∏' (i : ℕ), 3^(1/4*2^i)) := by sorry",
+        "verification": {
+          "status": "success"
+        }
+      }
+    ],
+    "final_status": "success",
+    "summary": {
+      "turns_to_fix": 4,
+      "hardness_score": 0.8
+    }
+  },
+  {
+    "id": "lean_workbook_plus_17",
+    "natural_language_statement": "Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$",
+    "conversation": [
+      {
+        "turn": 1,
+        "prompt": "Translate the following natural language math problem into a single, complete Lean 4 theorem statement.\n\n        Rules:\n        1. Only output the Lean 4 code.\n        2. Do not provide the proof, any explanation, or any surrounding text (like \"Here is the code:\").\n        3. The statement MUST be a complete theorem, starting with 'theorem' and ending with ':= by sorry'.\n\n        Problem: Prove that $\\frac{a^3}{1-a^8}+\\frac{b^3}{1-b^8}+\\frac{c^3}{1-c^8} \\geq \\frac{9\\sqrt[4]{3}}{8}$ for positive real numbers $a,b,c$ with $a^4+b^4+c^4=1$\n\n        Lean 4 Theorem:",
+        "response": "theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * (√[4] 3) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "Application type mismatch: In the application\n  √[4]\nthe argument\n  [4]\nhas type\n  List ?m.1151 : Type ?u.1150\nbut is expected to have type\n  ℝ : Type",
+          "error_class": "SyntaxError"
+        }
+      },
+      {
+        "turn": 2,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * (√[4] 3) := by sorry\n\n                    The Lean compiler returned this error:\n                    Application type mismatch: In the application\n  √[4]\nthe argument\n  [4]\nhas type\n  List ?m.1151 : Type ?u.1150\nbut is expected to have type\n  ℝ : Type\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((3).root 4) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "Invalid field `root`: The environment does not contain `Nat.root`\n  3\nhas type\n  ℕ",
+          "error_class": "InvalidField"
+        }
+      },
+      {
+        "turn": 3,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((3).root 4) := by sorry\n\n                    The Lean compiler returned this error:\n                    Invalid field `root`: The environment does not contain `Nat.root`\n  3\nhas type\n  ℕ\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((real.sqrt 3).powi 1/4) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unknown identifier 'real.sqrt'",
+          "error_class": "UnknownIdentifier"
+        }
+      },
+      {
+        "turn": 4,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((real.sqrt 3).powi 1/4) := by sorry\n\n                    The Lean compiler returned this error:\n                    unknown identifier 'real.sqrt'\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((real.sqrt 3).powi 2) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unknown identifier 'real.sqrt'",
+          "error_class": "UnknownIdentifier"
+        }
+      },
+      {
+        "turn": 5,
+        "prompt": "\n                    The previous Lean code was:\n                    theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((real.sqrt 3).powi 2) := by sorry\n\n                    The Lean compiler returned this error:\n                    unknown identifier 'real.sqrt'\n\n                    Please correct the previous theorem accordingly, ensuring valid Lean 4 syntax.\n                    Only output the corrected Lean code.\n                ",
+        "response": "theorem abc_bound : ∀ a b c, 0 < a ∧ 0 < b ∧ 0 < c ∧ a^4 + b^4 + c^4 = 1 → (a^3/(1-a^8) + b^3/(1-b^8) + c^3/(1-c^8)) ≥ 9/8 * ((real.sqrt (3)).powi 4) := by sorry",
+        "verification": {
+          "status": "failed",
+          "error_message": "unknown identifier 'real.sqrt'",
+          "error_class": "UnknownIdentifier"
+        }
+      }
+    ],
+    "final_status": "failed",
+    "summary": {
+      "turns_to_fix": 5,
+      "hardness_score": 1.0
+    }
+  }
+]
