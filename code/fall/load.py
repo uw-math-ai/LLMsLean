@@ -1,14 +1,18 @@
 from datasets import load_dataset
 import json
+import random
 
 def load(num, path):
-    ds = load_dataset("internlm/Lean-Workbook", split="train", streaming=True)
+    ds = list(load_dataset("internlm/Lean-Workbook", split="train", streaming=True))
     samples = []
 
     print("Start Loading Data")
 
     prev_id = -1
-    for data in ds:
+    
+    while len(samples)<100:
+        samp = int(random.randrange(0,len(ds)))
+        data = ds[samp]
         natural_language_statement = data['natural_language_statement']
         formal_statement = data['formal_statement']
         id = data['id']
@@ -31,6 +35,6 @@ def load(num, path):
         json.dump(samples, f, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
-    data_path = "data/data4.json"
+    data_path = "data/dataTRUE.json"
     # load(num=None, path=data_path)
     load(num=100, path=data_path)

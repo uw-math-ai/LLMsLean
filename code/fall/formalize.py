@@ -14,10 +14,10 @@ def load(input_file):
         return    
 
 if __name__ == "__main__":
-    data_path = "/home/chen_/project/LLMsLean/code/data/data.json"
-    result_path = "/home/chen_/project/LLMsLean/code/data/result.json"
-    final_result_path = "/home/chen_/project/LLMsLean/code/data/final_result.json"
-    regenerated_result_path = "/home/chen_/project/LLMsLean/code/data/regenerated_result.json"
+    data_path = "data/dataTRUE.json"
+    result_path = "result-llama-2.json"
+    final_result_path = "result-llama-2.json"
+    regenerated_result_path = "result-llama-2-regen.json"
     generate(data_path, result_path)
     verify(result_path, final_result_path)
     regen(final_result_path, regenerated_result_path)

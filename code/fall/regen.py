@@ -75,7 +75,7 @@ def regen(input_file, output_file):
                             response = litellm.completion(
                                 model=model,
                                 messages=messages,
-                                temperature=0.0,
+                                temperature=0.3,
                                 max_tokens=512
                             )
                             new_output = response.choices[0].message.content
