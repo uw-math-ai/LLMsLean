@@ -231,3 +231,5 @@ __marimo__/
 # really individual mac users should gitignore this in their personal global gitignore,
 # but they never do, so we just reinforce bad habits 
 .DS_Store
+
+/data

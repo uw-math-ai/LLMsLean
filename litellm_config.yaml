@@ -1,2 +1,0 @@
-litellm_settings:
-  callbacks: ["langfuse_otel"]
