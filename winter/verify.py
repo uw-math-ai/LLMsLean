@@ -18,13 +18,15 @@ def verify_single_result(response, project):
                 full_code = f"import Mathlib\n\n{response}"
                 command = Command(cmd=full_code)
                 eval = server.run(command, timeout = 60)
-                if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries)==0:
+                if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
                     return "Pass"
                 else:
                     errors = ""
-                    for error in eval.get_errors(): errors += str(error) + "; "
+                    for error in eval.get_errors(): 
+                        errors += str(error) + "; "
                     return "Fail: " + errors
-            except TimeoutError: return "Verification Failed: LeanInteract timed out"
+            except TimeoutError: 
+                return "Verification Failed: LeanInteract timed out"
             except Exception as e:
                 return f"Verificiation Failed: {e}"
     finally:
@@ -46,9 +48,11 @@ def verify(input, output):
 
     for theorem in tqdm(theorems, desc="Verifying Results"):
         count+=1
-        if not "verification" in theorem.keys(): theorem['verification'] = []
+        if not "verification" in theorem.keys():
+            theorem['verification'] = []
 
-        if len(theorem['verification']) >= len(theorem['responses']): continue
+        if len(theorem['verification']) >= len(theorem['responses']): 
+            continue
 
         try:
             theorem['verification'].append(verify_single_result(theorem["responses"][-1], project))
@@ -64,6 +68,7 @@ def verify(input, output):
     
     return theorems
 
+
 def check_accuracy(input):
     theorems = list(jsl.open(input))
     num = 0
@@ -75,6 +80,7 @@ def check_accuracy(input):
             if "Pass" in x["verification"][-1]: num+=1
     return f"{num}/{sum} Passed"
 
+
 if __name__ == "__main__":
     project = TempRequireProject(lean_version="v4.7.0", require="mathlib")
     config = LeanREPLConfig(project=project)
@@ -83,4 +89,3 @@ if __name__ == "__main__":
     command = Command(cmd=full_code)
     eval = server.run(command)
     print(eval.sorries)
-
