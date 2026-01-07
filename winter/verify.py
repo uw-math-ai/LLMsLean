@@ -17,7 +17,7 @@ def verify_single_result(response, project):
             try:
                 full_code = f"import Mathlib\n\n{response}"
                 command = Command(cmd=full_code)
-                eval = server.run(command, timeout = 60)
+                eval = server.run(command, timeout = 20)
                 if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
                     return "Pass"
                 else:
@@ -26,7 +26,7 @@ def verify_single_result(response, project):
                         errors += str(error) + "; "
                     return "Fail: " + errors
             except TimeoutError: 
-                return "Verification Failed: LeanInteract timed out"
+                return "Unknown Error: LEAN Verification timed out"
             except Exception as e:
                 return f"Verificiation Failed: {e}"
     finally:

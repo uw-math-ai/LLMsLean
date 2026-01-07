@@ -232,4 +232,4 @@ __marimo__/
 # but they never do, so we just reinforce bad habits 
 .DS_Store
 
-/data
+/data/*
