@@ -3,7 +3,7 @@ import json
 import random
 
 def load(num, path):
-    ds = list(load_dataset("internlm/Lean-Workbook", split="train", streaming=True))
+    ds = list(load_dataset("Tonic/MiniF2F", split="train", streaming=True))
     samples = []
 
     print("Start Loading Data")
@@ -35,6 +35,6 @@ def load(num, path):
         json.dump(samples, f, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
-    data_path = "data/dataTRUE.json"
+    data_path = "/Users/a1744684/Documents/AI_Lab/LeanTest/LLMsLean/data/dataTRUE.json"
     # load(num=None, path=data_path)
     load(num=100, path=data_path)

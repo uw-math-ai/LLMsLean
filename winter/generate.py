@@ -26,7 +26,7 @@ def generate(input, output, model, temp, amend):
     generation_started()
     theorems = list(jsl.open(input))
     langfuse_handler = CallbackHandler()
-    load_dotenv("../../.env")
+    load_dotenv("/Users/a1744684/Documents/AI_Lab/LeanTest/LLMsLean/winter.env")
 
     if 'anthropic' not in model:
         model = init_chat_model(model, temperature=temp)
