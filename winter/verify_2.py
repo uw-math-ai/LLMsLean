@@ -10,7 +10,8 @@ def verify_single_result(response, server):
         return "Generation failed, unable to verify"
 
     try:
-        command = Command(cmd=response)
+        full_code = f"import Mathlib\n\nresponse"
+        command = Command(cmd=full_code)
         eval = server.run(command, timeout=20)
 
         if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
