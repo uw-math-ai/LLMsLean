@@ -42,7 +42,7 @@ def verify(input, output):
 
     try:
         # Line that I changed
-        server.run(Command(cmd="import Mathlib\n"), timeout=20)
+        server.run(Command(cmd="import Mathlib\n"), timeout=120)
 
         count = 0
         for theorem in tqdm(theorems, desc="Verifying Results"):
