@@ -33,7 +33,7 @@ def generate(input, output, model, temp, amend):
     else:
         model = init_chat_model(model, temperature=temp, model_provider="bedrock_converse")
     
-    desc = f"{"Amending" if amend else "Generating"} Results"
+    desc = ("Amending" if amend else "Generating") + "Results"
     count = 0
     for theorem in tqdm(theorems, desc=desc):
         count += 1
