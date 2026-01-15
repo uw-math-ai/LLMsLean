@@ -5,7 +5,7 @@ import json
 DATA_PATH = f"data\\"
 BIG_DATA = "minif2f.jsonl"
 SMALL_DATA = "mini_" + BIG_DATA
-MINI_SIZE = 20
+MINI_SIZE = 20  # The size of the mini dataset
 
 lines = list(jsl.open(DATA_PATH + BIG_DATA))
 
