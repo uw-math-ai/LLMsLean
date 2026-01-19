@@ -15,7 +15,7 @@ def init_model(model_name: str, temp: float) -> BaseChatModel:
     if model_name in _LOCAL_MODELS:  # local models
         tokenizer = AutoTokenizer.from_pretrained(model_path)
         model = AutoModelForCausalLM.from_pretrained(model_path)
-        pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
+        pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
         llm = HuggingFacePipeline(pipeline=pipe)
     elif model_name == "sonnet":  # anthropic models
         llm = init_chat_model(model_path, temperature=temp)
