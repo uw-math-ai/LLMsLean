@@ -1,8 +1,8 @@
 from langchain_huggingface import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-import os
+from dotenv import load_dotenv
 
-os.environ["HF_HOME"] = "/gpfs/projects/mathai/lean-bench/LLMsLean/models"
+load_dotenv("../.env")
 
 model_id = "AI-MO/Kimina-Prover-72B"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
