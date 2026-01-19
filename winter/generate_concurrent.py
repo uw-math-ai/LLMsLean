@@ -7,6 +7,7 @@ from tqdm import tqdm
 import jsonlines as jsl
 from langfuse import observe
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from init_model import init_model
 
 def cleanup(response):
     pattern = r"FINAL```([\S\s]*)```"
@@ -23,10 +24,8 @@ def generation_started():
 def process_single_theorem(theorem, model_name, temp, amend):
     langfuse_handler = CallbackHandler()
     
-    if 'anthropic' not in model_name:
-        model = init_chat_model(model_name, temperature=temp)
-    else:
-        model = init_chat_model(model_name, temperature=temp, model_provider="bedrock_converse")
+    # initialize the model
+    model = init_model(model_name, temp)
 
     if 'responses' not in theorem.keys():
         theorem["responses"] = []    
