@@ -2,7 +2,7 @@ import jsonlines as jsl
 from random import randint
 import json
 
-DATA_PATH = f"data\\"
+DATA_PATH = f"../data/"
 BIG_DATA = "minif2f.jsonl"
 SMALL_DATA = "mini_" + BIG_DATA
 MINI_SIZE = 20  # The size of the mini dataset

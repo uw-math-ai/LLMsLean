@@ -4,7 +4,6 @@ from lean_interact.project import TempRequireProject
 import jsonlines as jsl
 from lean_interact.interface import LeanError
 
-
 def verify_single_result(response, project):
     server = None
     try:
