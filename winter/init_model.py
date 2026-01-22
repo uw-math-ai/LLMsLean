@@ -17,7 +17,8 @@ def init_model(model_name: str, temp: float) -> BaseChatModel:
         model = AutoModelForCausalLM.from_pretrained(
             model_id, 
             device_map="auto",
-            temperature=temp
+            temperature=temp,
+            model_kwargs = {"cache_dir": "/gpfs/projects/mathai/lean-bench/LLMsLean/models/"}
         )
 
         pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=4096)

@@ -3,10 +3,8 @@ from generate import generate
 from generate_concurrent import generate_concurrent
 from verify_2 import verify
 from verify_parallel import verify_parallel
-import os
 
 load_dotenv("../.env")
-os.environ["HF_HOME"] = "/gpfs/projects/mathai/lean-bench/LLMsLean/models"
 
 if __name__ == "__main__":
     # generate("../data/1.jsonl", "../data/2.jsonl", "us.anthropic.claude-sonnet-4-5-20250929-v1:0", 0, False)
