@@ -6,6 +6,7 @@ import re
 from tqdm import tqdm
 import jsonlines as jsl
 from langfuse import observe
+from init_model import init_model
 
 
 def cleanup(response):
@@ -28,10 +29,7 @@ def generate(input, output, model, temp, amend):
     langfuse_handler = CallbackHandler()
     load_dotenv("../../.env")
 
-    if 'anthropic' not in model:
-        model = init_chat_model(model, temperature=temp)
-    else:
-        model = init_chat_model(model, temperature=temp, model_provider="bedrock_converse")
+    model = init_model(model, temp)
     
     desc = ("Amending" if amend else "Generating") + "Results"
     count = 0
