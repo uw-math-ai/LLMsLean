@@ -79,6 +79,23 @@ def check_accuracy(input):
             if "Pass" in x["verification"][-1]: num+=1
     return f"{num}/{sum} Passed"
 
+def check_accuracy_all(input):
+    theorems = list(jsl.open(input))
+    num = []
+    sum = len(theorems)
+    for x in theorems[-1]['verification']:
+        num.append(0)
+    for theorem in theorems:
+        if 'verification' not in theorem.keys():
+            sum-=1
+        else:
+            for i, x in enumerate(theorem['verification']):
+                if "Pass" in x: num[i] +=1
+    for x in num:
+        x=x/sum
+    return f"{num}/{sum}"
+    
+
 
 if __name__ == "__main__":
     project = TempRequireProject(lean_version="v4.7.0", require="mathlib")
