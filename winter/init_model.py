@@ -8,27 +8,24 @@ _MODELS = {
 }
 
 _LOCAL_MODELS = {"kimina", "deepseek", "goedel"}
+_BEDROCK_MODELS = {"sonnet"}
 
 def init_model(model_name: str, temp: float) -> BaseChatModel:
     model_id = _MODELS[model_name]
 
     if model_name in _LOCAL_MODELS:  # local models
-        tokenizer = AutoTokenizer.from_pretrained(model_id)
-        model = AutoModelForCausalLM.from_pretrained(
-            model_id, 
-            device_map="auto",
-            temperature=temp,
-            model_kwargs = {"cache_dir": "/gpfs/projects/mathai/lean-bench/LLMsLean/models/"}
+        llm = HuggingFacePipeline.from_model_id(
+            model_id = model_id,
+            task = "text-generation",
+            model_kwargs = {"cache_dir": "/gpfs/projects/mathai/lean-bench/LLMsLean/models/"},
+            pipeline_kwargs = {"temperature": temp}
         )
-
-        pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=4096)
-        llm = HuggingFacePipeline(pipeline=pipe)
 
         response = llm.invoke("Prove that the square root of 2 is irrational in Lean 4.")
         print(response)
-    elif model_name == "sonnet":  # anthropic models
-        llm = init_chat_model(model_id, temperature=temp)
-    else:  # bedrock models
+    elif model_name in _BEDROCK_MODELS:  # bedrock models
         llm = init_chat_model(model_id, temperature=temp, model_provider="bedrock_converse")
+    else:  # bedrock models
+        llm = init_chat_model(model_id, temperature=temp)
 
     return llm
