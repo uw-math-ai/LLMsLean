@@ -30,8 +30,9 @@ def process_single_theorem(theorem, model_name, temp, amend):
     if 'responses' not in theorem.keys():
         theorem["responses"] = []    
 
-    if amend and "Pass" in theorem.get("verification", [""])[-1]:
+    if "Pass" in theorem.get("verification", [""])[-1]:
         theorem.setdefault("responses", []).append(theorem["responses"][-1])
+        theorem["verification"].append("Pass")
         return theorem
 
     prompt = """

@@ -56,8 +56,8 @@ def generate(input, output, model, temp, amend):
             if 'responses' not in theorem.keys():
                 theorem["responses"]=[]
 
-            if amend and "Pass" in theorem["verification"][-1]: 
-                theorem["responses"].append(theorem["responses"][-1])
+            if "Pass" in theorem.get("verification", [""])["verification"][-1]: 
+                theorem.setdefault("responses", []).append(theorem["responses"][-1])
                 theorem["verification"].append("Pass")
                 continue
 
