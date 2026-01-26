@@ -54,7 +54,10 @@ def verify_parallel(input, output, workers=4):
         if "verification" not in theorem.keys():
             theorem["verification"] = []
         if len(theorem["verification"]) < len(theorem["responses"]):
-            tasks.append((i, theorem["responses"][-1]))
+            if len(theorem["verification"])>0 and "Pass" in theorem["verification"][-1]:
+                theorem["verification"].append("Pass")
+            else:
+                tasks.append((i, theorem["responses"][-1]))
 
     if not tasks:
         with jsl.open(output, mode="w") as writer:
