@@ -3,11 +3,14 @@ from langchain_huggingface import HuggingFacePipeline
 
 _MODELS = {
   "sonnet": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
-  "kimina": "AI-MO/Kimina-Prover-72B"
+  "kimina": "AI-MO/Kimina-Prover-72B",
+  "opus": "us.anthropic.claude-opus-4-5-20251101-v1:0",
+  "gpt" : "gpt-5.1",
+  "gemini" :"google_genai:gemini-3-pro-preview"
 }
 
 _LOCAL_MODELS = {"kimina", "deepseek", "goedel"}
-_BEDROCK_MODELS = {"sonnet"}
+_BEDROCK_MODELS = {"sonnet", "opus"}
 
 _MAX_TOKENS = 4096
 
@@ -27,7 +30,7 @@ def init_model(model_name: str, temp: float) -> BaseChatModel:
         )
     elif model_name in _BEDROCK_MODELS:  # bedrock models
         llm = init_chat_model(model_id, temperature=temp, model_provider="bedrock_converse")
-    else:  # bedrock models
+    else:  # not bedrock models
         llm = init_chat_model(model_id, temperature=temp)
 
     return llm
