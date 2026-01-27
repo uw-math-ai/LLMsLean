@@ -10,7 +10,7 @@ _TEMP = 0.1
 
 def generate_loop(data, model, amend, workers=4, loops=1):
     load_dotenv("../.env")
-    output = data.strip(".jsonl")+f"_{model}+.jsonl"
+    output = data.split(".jsonl")[0]+f"_{model}.jsonl"
     generate_concurrent(data, output, model, _TEMP, False, workers)
     verify_parallel(output, output, workers)
     for i in range(loops-1):
