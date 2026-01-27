@@ -26,6 +26,8 @@ def process_single_theorem(theorem, model_name, temp, amend):
     
     # initialize the model
     model = init_model(model_name, temp)
+    assert(model != None)
+
 
     if 'responses' not in theorem.keys():
         theorem["responses"] = []    

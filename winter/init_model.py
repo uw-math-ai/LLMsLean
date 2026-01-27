@@ -15,6 +15,7 @@ _BEDROCK_MODELS = {"sonnet", "opus"}
 _MAX_TOKENS = 4096
 
 def init_model(model_name: str, temp: float) -> BaseChatModel:
+    assert(model_name in _MODELS)
     model_id = _MODELS[model_name]
 
     if model_name in _LOCAL_MODELS:  # local models

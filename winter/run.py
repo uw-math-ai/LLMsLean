@@ -8,8 +8,9 @@ load_dotenv("../.env")
 
 _TEMP = 0.1
 
-def generate_loop(data, output, model, amend, workers=4, loops=1):
+def generate_loop(data, model, amend, workers=4, loops=1):
     load_dotenv("../.env")
+    output = data.strip(".jsonl")+f"_{model}+.jsonl"
     generate_concurrent(data, output, model, _TEMP, False, workers)
     verify_parallel(output, output, workers)
     for i in range(loops-1):
@@ -32,6 +33,6 @@ if __name__ == "__main__":
     if argc >= 4:
         workers = int(argv[3])
     if argc >= 5:
-        loops = (argv[4])
+        loops = int(argv[4])
 
-    generate_loop("../data/mini_minif2f.jsonl", "../data/mini_minif2f_out.jsonl", model, amend, workers, loops)
+    generate_loop("../data/mini_minif2f.jsonl", model, amend, workers, loops)
