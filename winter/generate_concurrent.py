@@ -56,7 +56,8 @@ def process_single_theorem(theorem, model_name, temp, amend):
             config={"callbacks": [langfuse_handler]}
         )
         theorem["responses"].append(cleanup(response if type(response) == str else response.text))
-    except:
+    except Exception as e:
+        print(e)
         theorem["responses"].append("ERROR: Generation failed")
     
     return theorem

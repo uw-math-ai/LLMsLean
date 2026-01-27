@@ -9,7 +9,7 @@ _MODELS = {
 _LOCAL_MODELS = {"kimina", "deepseek", "goedel"}
 _BEDROCK_MODELS = {"sonnet"}
 
-_MAX_TOKENS = 3500
+_MAX_TOKENS = 4096
 
 def init_model(model_name: str, temp: float) -> BaseChatModel:
     model_id = _MODELS[model_name]

@@ -2,19 +2,36 @@ from dotenv import load_dotenv
 from generate_concurrent import generate_concurrent
 from verify import check_accuracy_all
 from verify_parallel import verify_parallel
+from sys import argv
 
 load_dotenv("../.env")
 
-def generate_loop(data, output, model, amend, temp =0, workers=4, loops=1):
+_TEMP = 0.1
+
+def generate_loop(data, output, model, amend, workers=4, loops=1):
     load_dotenv("../.env")
-    generate_concurrent(data, output, model, temp, False, workers)
+    generate_concurrent(data, output, model, _TEMP, False, workers)
     verify_parallel(output, output, workers)
     for i in range(loops-1):
-        generate_concurrent(output, output, model, temp, amend, workers)
+        generate_concurrent(output, output, model, _TEMP, amend, workers)
         verify_parallel(output, output, workers)
     print(check_accuracy_all(output))
     
 
 if __name__ == "__main__":
-    generate_loop("../data/mini_minif2f.jsonl", "../data/mini_minif2f_out.jsonl", "sonnet", True, loops=2)
-    
+    # parse args
+    argc = len(argv)
+    if argc < 3:
+        print(f"Error: Expected at least 3 arguments, got {argc}")
+        exit(1)
+
+    model = argv[1]
+    amend = bool(argv[2])
+    workers = 4
+    loops = 1
+    if argc >= 4:
+        workers = int(argv[3])
+    if argc >= 5:
+        loops = (argv[4])
+
+    generate_loop("../data/mini_minif2f.jsonl", "../data/mini_minif2f_out.jsonl", model, amend, workers, loops)
