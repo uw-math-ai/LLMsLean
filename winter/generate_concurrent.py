@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from init_model import init_model
 
 def cleanup(response):
-    pattern = r"FINAL```([\S\s]*)```"
+    pattern = r"FINAL```([\S\s]*?)```"
     snippets = re.findall(pattern, response)
     largest = ""
     for snip in snippets:
