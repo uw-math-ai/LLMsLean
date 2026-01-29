@@ -23,18 +23,39 @@ if __name__ == "__main__":
     # parse args
     argc = len(argv)
 
-    if argc < 3:
-        print(f"Error: Expected at least 3 arguments, got {argc}")
-        print("Usage: run.py <model: str> <amend: bool> [<workers: int> <loops: int>]")
-        exit(1)
+    # horrendous code reduncancy but whatever
+    if argv[1] == "--help":
+        print("Usage: python3 run.py <model: str> <amend: bool> [<workers: int> <loops: int>]")
+    elif argv[1] == "--gen":
+        model = argv[2]
+        workers = 4
+        if argc >= 4:
+            workers = argv[3]
+        
+        output = f"../data/mini_minif2f_{model}.jsonl"
+        generate_concurrent("../data/mini_minif2f.jsonl", output, model, False, workers, 1)
+    elif argv[1] == "--verify":
+        model = argv[2]
+        workers = 4
+        if argc >= 4:
+            workers = argv[3]
+        
+        output = f"../data/mini_minif2f_{model}.jsonl"
+        verify_parallel(output, output, workers)
+    else:
+        if argc < 3:
+            print(f"Error: Expected at least 3 arguments, got {argc}")
+            print("Usage: python3 run.py <model: str> <amend: bool> [<workers: int> <loops: int>]")
+            exit(1)
 
-    model = argv[1]
-    amend = bool(argv[2])
-    workers = 4
-    loops = 1
-    if argc >= 4:
-        workers = int(argv[3])
-    if argc >= 5:
-        loops = int(argv[4])
+        model = argv[1]
+        amend = bool(argv[2])
+        workers = 4
+        loops = 1
+        if argc >= 4:
+            workers = int(argv[3])
+        if argc >= 5:
+            loops = int(argv[4])
 
-    generate_loop("../data/mini_minif2f.jsonl", model, amend, workers, loops)
+
+        generate_loop("../data/mini_minif2f.jsonl", model, amend, workers, loops)

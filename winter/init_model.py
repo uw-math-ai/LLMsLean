@@ -23,7 +23,7 @@ def init_model(model_name: str, temp: float) -> BaseChatModel:
             model_id = model_id,
             task = "text-generation",
             device_map = "auto",
-            model_kwargs = {"cache_dir": "/gpfs/projects/mathai/lean-bench/LLMsLean/models/"},
+            model_kwargs = {"cache_dir": "/gpfs/scrubbed/lean-bench/models/"},
             pipeline_kwargs = {"temperature": temp,
                                 "do_sample": True,
                                 "max_new_tokens": _MAX_TOKENS,
