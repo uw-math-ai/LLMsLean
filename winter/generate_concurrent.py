@@ -9,9 +9,24 @@ from langfuse import observe
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from init_model import init_model
 
+# prompt stem for a new lean proof
+PROMPT_STEM = """
+        You are an expert in the LEAN 4 theorem prover. Your goal is to generate a correct, formalized proof in LEAN 4 for the provided theorem. 
+        You may explain your reasoning concisely but output the FULL, COMPLETE formalzed proof at the END of your response with **EXACTLY** the prefix: 'FINAL```', and the suffix '```'. 
+        Assume that all of Mathlib is imported. DO NOT provide your own import statements. IMMEDIATELY stop after appending the suffix.
+        Your theorem is: """
+
+# prompt stem for an amend
+AMEND_STEM = """
+        You are an expert in the LEAN 4 theorem prover. Your goal is to amend an incorrect formalized proof into a correct, formalized proof. 
+        You may explain your reasoning but output the full, complete formalzed proof at the end of your response with the prefix: FINAL```, and the suffix ```. 
+        Assume that all of Mathlib is imported. Do not provide your own import statements. """
+
+# regex for LLM final lean proof output
+OUT_REGEX = r"FINAL`+([\S\s]+?)`+"
+
 def cleanup(response):
-    pattern = r"FINAL```([\S\s]*?)```"
-    snippets = re.findall(pattern, response)
+    snippets = re.findall(OUT_REGEX, response)
     largest = ""
     for snip in snippets:
         if len(snip) > len(largest): largest = snip
@@ -36,21 +51,13 @@ def process_single_theorem(theorem, model_name, temp, amend):
         theorem.setdefault("responses", []).append(theorem["responses"][-1])
         return theorem
 
-    prompt = """
-        You are an expert in the LEAN 4 theorem prover. Your goal is to generate a correct, formalized proof in LEAN 4 for the provided theorem. 
-        You may explain your reasoning but output the full, complete formalzed proof at the end of your response with the prefix: FINAL```, and the suffix ```. 
-        Assume that all of Mathlib is imported. Do not provide your own import statements.
-        Your theorem is: """ + theorem["formal_statement"]
+    prompt = PROMPT_STEM + theorem["formal_statement"]
     if amend:
-        if amend:
-            prompt = f"""
-            You are an expert in the LEAN 4 theorem prover. Your goal is to amend an incorrect formalized proof into a correct, formalized proof. 
-            You may explain your reasoning but output the full, complete formalzed proof at the end of your response with the prefix: FINAL```, and the suffix ```. 
-            Assume that all of Mathlib is imported. Do not provide your own import statements.
-            The incorrect proof is: {theorem["responses"][-1]}
-            And the reason it is incorrect is: {theorem['verification'][-1]}
-            A reminder of the theorem statement: {theorem["formal_statement"]}
-            """
+        prompt = AMEND_STEM + f"""
+        The incorrect proof is: {theorem["responses"][-1]}
+        And the reason it is incorrect is: {theorem['verification'][-1]}
+        A reminder of the theorem statement: {theorem["formal_statement"]}
+        """
 
     try:
         response = model.invoke(

@@ -22,8 +22,10 @@ def generate_loop(data, model, amend, workers=4, loops=1):
 if __name__ == "__main__":
     # parse args
     argc = len(argv)
+
     if argc < 3:
         print(f"Error: Expected at least 3 arguments, got {argc}")
+        print("Usage: run.py <model: str> <amend: bool> [<workers: int> <loops: int>]")
         exit(1)
 
     model = argv[1]
