@@ -30,6 +30,9 @@ def cleanup(response):
     largest = ""
     for snip in snippets:
         if len(snip) > len(largest): largest = snip
+
+    # remove junk before the theorem statement
+    largest = "theorem" + largest.split("theorem")[1]
     return largest
 
 @observe
