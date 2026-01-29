@@ -3,10 +3,12 @@ from langchain_huggingface import HuggingFacePipeline
 
 _MODELS = {
   "sonnet": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
-  "kimina": "AI-MO/Kimina-Prover-72B",
   "opus": "us.anthropic.claude-opus-4-5-20251101-v1:0",
-  "gpt" : "gpt-5.1",
-  "gemini" :"google_genai:gemini-3-pro-preview"
+  "gpt": "gpt-5.1",
+  "gemini": "google_genai:gemini-3-pro-preview",
+  "kimina": "AI-MO/Kimina-Prover-72B",
+  "deepseek": "deepseek-ai/DeepSeek-Prover-V2-671B",
+  "goedel": "Goedel-LM/Goedel-Prover-V2-32B"
 }
 
 _LOCAL_MODELS = {"kimina", "deepseek", "goedel"}

@@ -13,7 +13,7 @@ from init_model import init_model
 PROMPT_STEM = """
         You are an expert in the LEAN 4 theorem prover. Your goal is to generate a correct, formalized proof in LEAN 4 for the provided theorem. 
         You may explain your reasoning concisely but output the FULL, COMPLETE formalzed proof at the END of your response with **EXACTLY** the prefix: 'FINAL```', and the suffix '```'. 
-        Assume that all of Mathlib is imported. DO NOT provide your own import statements. IMMEDIATELY stop after appending the suffix.
+        Assume that all of Mathlib is imported. **DO NOT** provide your own import statements. **DO NOT** put anything except valid lean in your final proof. IMMEDIATELY stop after appending the suffix.
         Your theorem is: """
 
 # prompt stem for an amend
