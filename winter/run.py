@@ -33,15 +33,15 @@ if __name__ == "__main__":
         model = argv[2]
         workers = 4
         if argc >= 4:
-            workers = argv[3]
+            workers = int(argv[3])
         
         output = f"../data/mini_minif2f_{model}.jsonl"
-        generate_concurrent("../data/mini_minif2f.jsonl", output, model, False, workers, 1)
+        generate_concurrent("../data/mini_minif2f.jsonl", output, model, _TEMP, False, workers)
     elif argv[1] == "--verify":
         model = argv[2]
         workers = 4
         if argc >= 4:
-            workers = argv[3]
+            workers = int(argv[3])
         
         output = f"../data/mini_minif2f_{model}.jsonl"
         verify_parallel(output, output, workers)
