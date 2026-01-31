@@ -24,15 +24,25 @@ AMEND_STEM = """
 
 # regex for LLM final lean proof output
 OUT_REGEX = r"FINAL`+([\S\s]+?)`+"
+BACKUP_REGEX = r"theorem([\S\s]+?)`+"
 
-def cleanup(response):
-    snippets = re.findall(OUT_REGEX, response)
+def get_max_match(response, reg):
+    snippets = re.findall(reg, response)
     largest = ""
     for snip in snippets:
-        if len(snip) > len(largest): largest = snip
+        if len(snip) > len(largest): 
+            largest = snip
 
-    # remove junk before the theorem statement
-    largest = "theorem" + largest.split("theorem")[1]
+    return largest
+
+def cleanup(response):
+    largest = get_max_match(response, OUT_REGEX)
+    
+    try:  # try remove junk before the theorem statement
+        largest = "theorem" + largest.split("theorem")[1]
+    except:  # if this fails, then use the safer regex to try and recover
+        largest = "theorem" + get_max_match(response, BACKUP_REGEX)
+
     return largest
 
 @observe
@@ -45,7 +55,6 @@ def process_single_theorem(theorem, model_name, temp, amend):
     # initialize the model
     model = init_model(model_name, temp)
     assert(model != None)
-
 
     if 'responses' not in theorem.keys():
         theorem["responses"] = []    

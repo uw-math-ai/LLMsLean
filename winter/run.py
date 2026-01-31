@@ -1,3 +1,6 @@
+import os
+os.environ["VLLM_CACHE_ROOT"] = "/gpfs/scrubbed/lean-bench/vllm_cache"
+
 from dotenv import load_dotenv
 from generate_concurrent import generate_concurrent
 from verify import check_accuracy_all

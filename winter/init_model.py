@@ -1,5 +1,5 @@
 from langchain.chat_models import init_chat_model, BaseChatModel
-from langchain_huggingface import HuggingFacePipeline
+from langchain_community.llms import VLLM
 
 _MODELS = {
   "sonnet": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
@@ -7,7 +7,7 @@ _MODELS = {
   "gpt": "gpt-5.1",
   "gemini": "google_genai:gemini-3-pro-preview",
   "kimina": "AI-MO/Kimina-Prover-72B",
-  "deepseek": "deepseek-ai/DeepSeek-Prover-V2-671B",
+  "deepseek": "deepseek-ai/DeepSeek-Prover-V2-7B",
   "goedel": "Goedel-LM/Goedel-Prover-V2-32B"
 }
 
@@ -21,16 +21,21 @@ def init_model(model_name: str, temp: float) -> BaseChatModel:
     model_id = _MODELS[model_name]
 
     if model_name in _LOCAL_MODELS:  # local models
-        llm = HuggingFacePipeline.from_model_id(
-            model_id = model_id,
-            task = "text-generation",
-            device_map = "auto",
-            model_kwargs = {"cache_dir": "/gpfs/scrubbed/lean-bench/models/"},
-            pipeline_kwargs = {"temperature": temp,
-                                "do_sample": True,
-                                "max_new_tokens": _MAX_TOKENS,
-                                }
-        )
+        try:
+            llm = VLLM(
+                model=model_id,
+                tensor_parallel_size=2,        # Number of GPUs
+                trust_remote_code=True,
+                download_dir="/gpfs/scrubbed/lean-bench/models/",
+                vllm_kwargs={
+                    "gpu_memory_utilization": 0.9,
+                },
+                temperature=temp,
+                max_new_tokens=_MAX_TOKENS,
+                top_p=0.95,
+            )
+        except Exception as e:
+            print(e)
     elif model_name in _BEDROCK_MODELS:  # bedrock models
         llm = init_chat_model(model_id, temperature=temp, model_provider="bedrock_converse")
     else:  # not bedrock models
