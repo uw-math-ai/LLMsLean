@@ -3,6 +3,7 @@ from generate_concurrent import generate_concurrent
 from verify import check_accuracy_all
 from verify_parallel import verify_parallel
 from sys import argv
+import time
 
 load_dotenv("../.env")
 
@@ -22,7 +23,6 @@ def generate_loop(data, model, amend, workers=4, loops=1):
 if __name__ == "__main__":
     # parse args
     argc = len(argv)
-
     # horrendous code reduncancy but whatever
     if argv[1] == "--help":
         print("Usage: python3 run.py <model: str> <amend: bool> [<workers: int> <loops: int>]")

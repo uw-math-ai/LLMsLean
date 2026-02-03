@@ -5,6 +5,7 @@ from lean_interact import LeanREPLConfig, Command, AutoLeanServer
 from lean_interact.project import TempRequireProject
 import jsonlines as jsl
 from lean_interact.interface import LeanError
+import time
 
 _worker_server = None
 
@@ -16,35 +17,40 @@ def init_worker(config):
     except Exception as e:
         _worker_server = e
 
-def verify_single_result_worker(response):
+def verify_single_result_worker(response, header):
     global _worker_server
     if isinstance(_worker_server, Exception):
-        return f"Verificiation Failed: Worker initialization failed: {_worker_server}"
+        return [f"Verificiation Failed: Worker initialization failed: {_worker_server}", -1]
     if _worker_server is None:
-        return "Verificiation Failed: Worker server not initialized"
+        return ["Verificiation Failed: Worker server not initialized",  -1]
         
     if "ERROR: Generation failed" in response:
-        return "Generation failed, unable to verify"
+        return ["Generation failed, unable to verify",  -1]
 
     try:
         clean_response = response.replace("lean\n", "").strip()
-        full_code = f"import Mathlib\n\n{clean_response}"
+        full_code = header +f"\n\n{clean_response}"
         # full_code = f"import Mathlib\n\n{response}"
         command = Command(cmd=full_code)
-        eval = _worker_server.run(command, timeout=20)
 
+        t = time.perf_counter()
+        eval = _worker_server.run(command, timeout=20)
+        t = time.perf_counter() - t
+        
         if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
-            return "Pass"
+            return ["Pass", t]
         else:
             errors = ""
             for error in eval.get_errors():
                 errors += str(error) + "; "
-            return "Fail: " + errors
+            for sorry in eval.sorries:
+                errors += str(sorry) + "; "
+            return ["Fail: " + errors, t]
 
     except TimeoutError:
-        return "Unknown Error: LEAN Verification timed out"
+        return ["Unknown Error: LEAN Verification timed out", -1]
     except Exception as e:
-        return f"Verificiation Failed: {e}"
+        return [f"Verificiation Failed: {e}", -1]
 
 def verify_parallel(input, output, workers=4):
     theorems = list(jsl.open(input))
@@ -57,7 +63,7 @@ def verify_parallel(input, output, workers=4):
             if len(theorem["verification"])>0 and "Pass" in theorem["verification"][-1]:
                 theorem["verification"].append("Pass")
             else:
-                tasks.append((i, theorem["responses"][-1]))
+                tasks.append((i, [theorem["responses"][-1], theorem["header"]]))
 
     if not tasks:
         with jsl.open(output, mode="w") as writer:
@@ -81,7 +87,7 @@ def verify_parallel(input, output, workers=4):
         initargs=(config,)
     ) as executor:
         future_to_index = {
-            executor.submit(verify_single_result_worker, resp): idx for idx, resp in tasks
+            executor.submit(verify_single_result_worker, resp[0], resp[1]): idx for idx, resp in tasks
         }
 
         pbar = tqdm(as_completed(future_to_index), total=len(future_to_index), desc="Verifying Results")
@@ -94,7 +100,9 @@ def verify_parallel(input, output, workers=4):
             except Exception as e:
                 res = f"Verificiation Failed: {e}"
             
-            theorems[idx]["verification"].append(res)
+            theorems[idx].setdefault("verify_time",[])
+            theorems[idx]["verify_time"].append(res[1])
+            theorems[idx]["verification"].append(res[0])
             
             count += 1
             if count % 30 == 0:
