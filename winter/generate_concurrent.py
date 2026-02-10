@@ -9,10 +9,11 @@ from langfuse import observe
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from init_model import init_model
 import threading
+import time
 
 # prompt stem for a new lean proof
 PROMPT_STEM = """
-        You are an expert in the LEAN 4 theorem prover. Your goal is to generate a correct, formalized proof in LEAN 4 for the provided theorem. 
+        You are an expert in the LEAN 4 theorem prover. Your goal is to generate a correct, formalized proof in LEAN 4 for the provided theorem within the provided context. 
         You may explain your reasoning concisely but output the FULL, COMPLETE formalzed proof at the END of your response with **EXACTLY** the prefix: 'FINAL```', and the suffix '```'. 
         Assume that all of Mathlib is imported. **DO NOT** provide your own import statements. **DO NOT** put anything except valid lean in your final proof. IMMEDIATELY stop after appending the suffix.
         Your theorem is: """
@@ -72,20 +73,32 @@ def process_single_theorem(theorem, model_name, temp, amend):
         theorem.setdefault("responses", []).append(theorem["responses"][-1])
         return theorem
 
-    prompt = PROMPT_STEM + theorem["formal_statement"]
+    prompt = PROMPT_STEM + theorem["header"]+ "\n" + theorem["formal_statement"]
     if amend:
         prompt = AMEND_STEM + f"""
         The incorrect proof is: {theorem["responses"][-1]}
         And the reason it is incorrect is: {theorem['verification'][-1]}
-        A reminder of the theorem statement: {theorem["formal_statement"]}
+        A reminder of the theorem statement:{theorem["header"]}\n {theorem["formal_statement"]}
         """
-
+    
     try:
+        t = time.perf_counter()
         response = model.invoke(
             prompt,
             config={"callbacks": [langfuse_handler]}
         )
+        t = time.perf_counter() - t
+
         theorem["responses"].append(cleanup(response if type(response) == str else response.text))
+
+        theorem.setdefault("model_time", [])
+        theorem["model_time"].append(t)
+
+        if response.usage_metadata:
+            theorem.setdefault("input_tokens", [])
+            theorem.setdefault("output_tokens", [])
+            theorem["input_tokens"].append(response.usage_metadata["input_tokens"])
+            theorem["output_tokens"].append(response.usage_metadata["output_tokens"])
     except Exception as e:
         print(e)
         theorem["responses"].append("ERROR: Generation failed")
