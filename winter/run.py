@@ -9,7 +9,7 @@ from sys import argv
 
 load_dotenv("../.env")
 
-_TEMP = 0.1
+_TEMP = 0.05
 
 def generate_loop(data, model, amend, workers=4, loops=1):
     load_dotenv("../.env")
