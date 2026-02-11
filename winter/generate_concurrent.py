@@ -8,6 +8,7 @@ import jsonlines as jsl
 from langfuse import observe
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from init_model import init_model
+import threading
 import time
 
 # prompt stem for a new lean proof
@@ -26,6 +27,14 @@ AMEND_STEM = """
 # regex for LLM final lean proof output
 OUT_REGEX = r"FINAL`+([\S\s]+?)`+"
 BACKUP_REGEX = r"theorem([\S\s]+?)`+"
+
+thread_local = threading.local()
+
+def get_model(model_name, temp):
+    """Helper to get or initialize the model for the current thread."""
+    if not hasattr(thread_local, "model"):
+        thread_local.model = init_model(model_name, temp)
+    return thread_local.model
 
 def get_max_match(response, reg):
     snippets = re.findall(reg, response)
@@ -54,7 +63,7 @@ def process_single_theorem(theorem, model_name, temp, amend):
     langfuse_handler = CallbackHandler()
     
     # initialize the model
-    model = init_model(model_name, temp)
+    model = get_model(model_name, temp)
     assert(model != None)
 
     if 'responses' not in theorem.keys():
