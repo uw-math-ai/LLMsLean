@@ -34,7 +34,7 @@ def verify_single_result_worker(response, header):
         command = Command(cmd=full_code)
 
         t = time.perf_counter()
-        eval = _worker_server.run(command, timeout=20)
+        eval = _worker_server.run(command, timeout=60)
         t = time.perf_counter() - t
         
         if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
@@ -70,10 +70,10 @@ def verify_parallel(input, output, workers=4):
             writer.write_all(theorems)
         return theorems
 
-    project = TempRequireProject(lean_version="v4.7.0", require="mathlib")
+    project = TempRequireProject(lean_version="v4.16.0", require="mathlib")
     config = LeanREPLConfig(
         project=project,
-        memory_hard_limit_mb=4096,
+        #memory_hard_limit_mb=4096,
         # enable_incremental_optimization=True,
         # enable_parallel_elaboration=True
     )

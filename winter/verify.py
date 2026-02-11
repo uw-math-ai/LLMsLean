@@ -1,5 +1,6 @@
 from tqdm import tqdm
 from lean_interact import LeanREPLConfig, LeanServer, Command, AutoLeanServer
+from lean_interact.pool import LeanServerPool
 from lean_interact.project import TempRequireProject
 import jsonlines as jsl
 from lean_interact.interface import LeanError
@@ -33,7 +34,6 @@ def verify_single_result(response, project):
         if server:
             server.kill()    
         
-
 def verify(input, output):
     project = None
     theorems = list(jsl.open(input))
@@ -68,6 +68,60 @@ def verify(input, output):
     
     return theorems
 
+def verify_parallel(input, output):
+    project = None
+    theorems = list(jsl.open(input))
+    try:
+        print("Setting Up Temp Project")
+        project = TempRequireProject(lean_version="v4.16.0", require="mathlib")
+    except Exception as e:
+        print(f"Exception: {e}")
+        return
+
+    t_list = []
+    for theorem in theorems:
+        response = theorem["responses"][-1]
+        header = theorem["header"]
+        #header = "import Mathlib"
+        clean_response = response.replace("lean\n", "").strip()
+        full_code = header +f"\n\n{clean_response}"
+        #options = [(["trace", "profiler"], True)]
+        command = Command(cmd=full_code)
+        t_list.append(command)
+    try:
+        config = LeanREPLConfig(project=project)
+        pool = LeanServerPool(config)
+    except Exception as e:
+        print(e)
+    
+    try:
+        r_list = pool.run_batch(t_list, show_progress=True, timeout_per_cmd=60)
+        pool.close()
+    except Exception as e:
+        r_list =[]
+        print(e)
+    ct = 0
+    for i, theorem in enumerate(theorems):
+        eval = r_list[i]
+
+        if type(eval) == TimeoutError: 
+            theorem["verification"].append("Unknown Error: LEAN Verification timed out")
+            print("Timeout")
+            continue
+
+        if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
+            theorem["verification"].append("Pass")
+            ct+=1
+        else:
+            errors = ""
+            for error in eval.get_errors(): 
+                errors += str(error) + "; "
+            theorem["verification"].append("Fail: " + errors)
+    with jsl.open(output, mode="w") as writer:
+        writer.write_all(theorems)
+    
+    
+
 
 def check_accuracy(input):
     theorems = list(jsl.open(input))
@@ -101,13 +155,16 @@ def plot_time(input):
     gt = []
     vt = []
     for x in theorems:
-        gt.append((x["input_tokens"])[-1])
-        vt.append((x["output_tokens"])[-1])
+        #gt.append((x["input_tokens"])[-1])
+        vt.append((x["model_time"])[-1])
     fig, ax = plt.subplots(1, sharex=True)
-    ax.hist(gt)
+    #ax[0].hist(gt)
+    ax.hist(vt)
     plt.show()   
     
 
 
 if __name__ == "__main__":
-    plot_time("../data/mini_minif2f_sonnet.jsonl")
+    #plot_time("../data/mini_minif2f_gemini.jsonl")
+    verify_parallel("../data/sonnet-1.jsonl","../data/mini_minif2f_sonnet.jsonl")
+    #print(check_accuracy_all("../data/sonnet-1.jsonl"))

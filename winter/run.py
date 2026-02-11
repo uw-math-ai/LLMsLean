@@ -6,7 +6,6 @@ from generate_concurrent import generate_concurrent
 from verify import check_accuracy_all
 from verify_parallel import verify_parallel
 from sys import argv
-import time
 
 load_dotenv("../.env")
 
@@ -45,6 +44,7 @@ if __name__ == "__main__":
         
         output = f"../data/mini_minif2f_{model}.jsonl"
         verify_parallel(output, output, workers)
+        print(check_accuracy_all(output))
     else:
         if argc < 3:
             print(f"Error: Expected at least 3 arguments, got {argc}")
