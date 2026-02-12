@@ -94,7 +94,7 @@ def process_single_theorem(theorem, model_name, temp, amend):
         theorem.setdefault("model_time", [])
         theorem["model_time"].append(t)
 
-        if response.usage_metadata:
+        if hasattr(response, 'usage_metadata'):
             theorem.setdefault("input_tokens", [])
             theorem.setdefault("output_tokens", [])
             theorem["input_tokens"].append(response.usage_metadata["input_tokens"])
