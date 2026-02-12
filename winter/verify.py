@@ -102,6 +102,9 @@ def verify_parallel(input, output):
         print(e)
     ct = 0
     for i, theorem in enumerate(theorems):
+        if not "verification" in theorem.keys():
+            theorem['verification'] = []
+
         eval = r_list[i]
 
         if type(eval) == TimeoutError: 
@@ -119,8 +122,6 @@ def verify_parallel(input, output):
             theorem["verification"].append("Fail: " + errors)
     with jsl.open(output, mode="w") as writer:
         writer.write_all(theorems)
-    
-    
 
 
 def check_accuracy(input):
