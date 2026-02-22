@@ -5,6 +5,7 @@ from lean_interact.project import TempRequireProject
 import jsonlines as jsl
 from lean_interact.interface import LeanError
 import matplotlib.pyplot as plt
+import re
 
 def verify_single_result(response, project):
     server = None
@@ -68,6 +69,7 @@ def verify(input, output):
     
     return theorems
 
+
 def verify_parallel(input, output):
     project = None
     theorems = list(jsl.open(input))
@@ -82,10 +84,9 @@ def verify_parallel(input, output):
     for theorem in theorems:
         response = theorem["responses"][-1]
         header = theorem["header"]
-        #header = "import Mathlib"
         clean_response = response.replace("lean\n", "").strip()
-        full_code = header +f"\n\n{clean_response}"
-        #options = [(["trace", "profiler"], True)]
+        full_code = header +"\n set_option trace.profiler true \n" + clean_response
+        options = [(["trace", "profiler"], True)]
         command = Command(cmd=full_code)
         t_list.append(command)
     try:
@@ -95,7 +96,7 @@ def verify_parallel(input, output):
         print(e)
     
     try:
-        r_list = pool.run_batch(t_list, show_progress=True, timeout_per_cmd=60)
+        r_list = pool.run_batch(t_list, show_progress=True, timeout_per_cmd=60, )
         pool.close()
     except Exception as e:
         r_list =[]
@@ -107,11 +108,10 @@ def verify_parallel(input, output):
 
         eval = r_list[i]
 
-        if type(eval) == TimeoutError: 
+        if isinstance(eval, Exception):
             theorem["verification"].append("Unknown Error: LEAN Verification timed out")
-            print("Timeout")
             continue
-
+        
         if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
             theorem["verification"].append("Pass")
             ct+=1
@@ -120,6 +120,17 @@ def verify_parallel(input, output):
             for error in eval.get_errors(): 
                 errors += str(error) + "; "
             theorem["verification"].append("Fail: " + errors)
+        messages = eval.messages
+        line = theorem["header"].count("\n")
+        time= 0
+        for message in messages:
+            if "[Elab.command]" in message.data and re.search(r"\[([0-9]+.[0-9]+)\]", message.data) != None:
+                time = float(re.findall(r"\[Elab\.command\] \[([0-9]+\.[0-9]+)\]", message.data)[0])
+                
+        if "verify_time" in theorem.keys(): 
+            theorem["verify_time"] = theorem["verify_time"].append(time)
+        else:
+            theorem["verify_time"] = [time]
     with jsl.open(output, mode="w") as writer:
         writer.write_all(theorems)
 
@@ -167,5 +178,5 @@ def plot_time(input):
 
 if __name__ == "__main__":
     #plot_time("../data/mini_minif2f_gemini.jsonl")
-    verify_parallel("../data/sonnet-1.jsonl","../data/mini_minif2f_sonnet.jsonl")
-    #print(check_accuracy_all("../data/sonnet-1.jsonl"))
+    #verify_parallel("../data/mini_miniCTX_sonnet.jsonl","../data/mini_miniCTX_test.jsonl")
+    #print(check_accuracy_all("../data/mini_miniCTX_test.jsonl"))
