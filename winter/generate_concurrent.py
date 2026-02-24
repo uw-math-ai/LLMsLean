@@ -129,7 +129,7 @@ def generate_concurrent(input, output, model, temp, amend, workers=4):
                 pass
             
             count += 1
-            if count % 30 == 0:
+            if count % 1 == 0:
                 with jsl.open(output, mode="w") as writer:
                     writer.write_all([r for r in results if r is not None])
 

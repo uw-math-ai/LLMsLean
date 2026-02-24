@@ -177,6 +177,8 @@ def plot_time(input):
 
 
 if __name__ == "__main__":
+    #print(check_accuracy_all("../data/sonnet-1.jsonl"))
     #plot_time("../data/mini_minif2f_gemini.jsonl")
     #verify_parallel("../data/mini_miniCTX_sonnet.jsonl","../data/mini_miniCTX_test.jsonl")
     #print(check_accuracy_all("../data/mini_miniCTX_test.jsonl"))
+    pass
