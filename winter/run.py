@@ -37,7 +37,7 @@ if __name__ == "__main__":
     elif argv[1] == "--verify":
         model = argv[2]
         
-        output = f"../data/mini_miniCTX_{model}.jsonl"
+        output = f"../data/mini_minif2f_{model}.jsonl"
         verify_parallel(output, output)
         print(check_accuracy_all(output))
     elif argv[1] == "--final":

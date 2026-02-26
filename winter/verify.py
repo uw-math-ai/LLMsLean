@@ -90,7 +90,7 @@ def verify_parallel(input, output):
         command = Command(cmd=full_code)
         t_list.append(command)
     try:
-        config = LeanREPLConfig(project=project)
+        config = LeanREPLConfig(project=project)    
         pool = LeanServerPool(config)
     except Exception as e:
         print(e)
@@ -131,7 +131,6 @@ def verify_parallel(input, output):
                 time = float(re.findall(r"\[Elab\.command\] \[([0-9]+\.[0-9]+)\]", message.data)[0])
                 
         if "verify_time" in theorem.keys():
-            print(theorem["verify_time"])
             theorem["verify_time"].append(time)
         else:
             theorem["verify_time"] = [time]
