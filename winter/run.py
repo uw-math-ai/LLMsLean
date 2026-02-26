@@ -37,9 +37,22 @@ if __name__ == "__main__":
     elif argv[1] == "--verify":
         model = argv[2]
         
-        output = f"../data/mini_minif2f_{model}.jsonl"
+        output = f"../data/mini_miniCTX_{model}.jsonl"
         verify_parallel(output, output)
         print(check_accuracy_all(output))
+    elif argv[1] == "--final":
+        model = argv[2]
+        amend = bool(argv[3])
+        workers = 4
+        loops = 4
+        if argv[4] == "C": dataset = "miniCTX"
+        else: dataset = "minif2f"
+        if argc >= 6:
+            workers = int(argv[5])
+        if argc >= 7:
+            loops = int(argv[6])
+
+        generate_loop(f"../data/{dataset}.jsonl", model, amend, workers, loops)
     else:
         if argc < 3:
             print(f"Error: Expected at least 3 arguments, got {argc}")

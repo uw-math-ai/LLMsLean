@@ -110,6 +110,10 @@ def verify_parallel(input, output):
 
         if isinstance(eval, Exception):
             theorem["verification"].append("Unknown Error: LEAN Verification timed out")
+            if "verify_time" in theorem.keys(): 
+                theorem["verify_time"] = theorem["verify_time"].append(-1)
+            else:
+                theorem["verify_time"] = [-1]
             continue
         
         if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
@@ -121,14 +125,14 @@ def verify_parallel(input, output):
                 errors += str(error) + "; "
             theorem["verification"].append("Fail: " + errors)
         messages = eval.messages
-        line = theorem["header"].count("\n")
         time= 0
         for message in messages:
             if "[Elab.command]" in message.data and re.search(r"\[([0-9]+.[0-9]+)\]", message.data) != None:
                 time = float(re.findall(r"\[Elab\.command\] \[([0-9]+\.[0-9]+)\]", message.data)[0])
                 
-        if "verify_time" in theorem.keys(): 
-            theorem["verify_time"] = theorem["verify_time"].append(time)
+        if "verify_time" in theorem.keys():
+            print(theorem["verify_time"])
+            theorem["verify_time"].append(time)
         else:
             theorem["verify_time"] = [time]
     with jsl.open(output, mode="w") as writer:
