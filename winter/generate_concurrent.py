@@ -91,8 +91,7 @@ def process_single_theorem(theorem, model_name, temp, amend):
 
         theorem["responses"].append(cleanup(response if type(response) == str else response.text))
 
-        theorem.setdefault("model_time", [])
-        theorem["model_time"].append(t)
+        theorem.setdefault("model_time", []).append(t)
 
         if hasattr(response, 'usage_metadata'):
             theorem.setdefault("input_tokens", [])
@@ -101,6 +100,8 @@ def process_single_theorem(theorem, model_name, temp, amend):
             theorem["output_tokens"].append(response.usage_metadata["output_tokens"])
     except Exception as e:
         print(e)
+        if "ThrottlingException" in e:
+            return -1
         theorem["responses"].append("ERROR: Generation failed")
     
     return theorem
@@ -123,13 +124,17 @@ def generate_concurrent(input, output, model, temp, amend, workers=4):
         count = 0
         for future in pbar:
             idx = future_to_index[future]
-            try:
-                results[idx] = future.result()
-            except:
-                pass
+            result = future.result()
+            if result == -1:
+                if "responses" in theorems[0].keys():
+                    print(f"Generation is being throttled, please wait and try again soon. Your attempt made it through {len(theorems[0]["responses"])} iterations\n To continue run: python run.py --repair {model} {model} [dataset] [workers] [loops remaining]")
+                else:
+                    print(f"Generation is being throttled, please wait and try again soon. Your attempt made it through 0 iterations\n To continue run: python run.py --repair {model} {model} [dataset] [workers] [loops remaining]")
+                return -1
+            results[idx] = result
             
             count += 1
-            if count % 30 == 0:
+            if count % 1 == 0:
                 with jsl.open(output, mode="w") as writer:
                     writer.write_all([r for r in results if r is not None])
 

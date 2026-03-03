@@ -232,7 +232,11 @@ __marimo__/
 # but they never do, so we just reinforce bad habits 
 .DS_Store
 
-/data/*
 /models/*
 /.lake
 /lean_proj/*
+/data/*.jsonl
+/data/Initial Tests
+/data/Final Tests/*
+/data/fall
+/models/*

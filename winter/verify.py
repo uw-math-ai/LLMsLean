@@ -5,6 +5,7 @@ from lean_interact.project import TempRequireProject
 import jsonlines as jsl
 from lean_interact.interface import LeanError
 import matplotlib.pyplot as plt
+import re
 
 def verify_single_result(response, project):
     server = None
@@ -68,6 +69,7 @@ def verify(input, output):
     
     return theorems
 
+
 def verify_parallel(input, output):
     project = None
     theorems = list(jsl.open(input))
@@ -82,14 +84,13 @@ def verify_parallel(input, output):
     for theorem in theorems:
         response = theorem["responses"][-1]
         header = theorem["header"]
-        #header = "import Mathlib"
         clean_response = response.replace("lean\n", "").strip()
-        full_code = header +f"\n\n{clean_response}"
-        #options = [(["trace", "profiler"], True)]
+        full_code = header +"\n set_option trace.profiler true \n" + clean_response
+        options = [(["trace", "profiler"], True)]
         command = Command(cmd=full_code)
         t_list.append(command)
     try:
-        config = LeanREPLConfig(project=project)
+        config = LeanREPLConfig(project=project)    
         pool = LeanServerPool(config)
     except Exception as e:
         print(e)
@@ -102,13 +103,19 @@ def verify_parallel(input, output):
         print(e)
     ct = 0
     for i, theorem in enumerate(theorems):
+        if not "verification" in theorem.keys():
+            theorem['verification'] = []
+
         eval = r_list[i]
 
-        if type(eval) == TimeoutError: 
+        if isinstance(eval, Exception):
             theorem["verification"].append("Unknown Error: LEAN Verification timed out")
-            print("Timeout")
+            if "verify_time" in theorem.keys(): 
+                theorem["verify_time"].append(-1)
+            else:
+                theorem["verify_time"] = [-1]
             continue
-
+        
         if not isinstance(eval, LeanError) and eval.lean_code_is_valid() and len(eval.sorries) == 0:
             theorem["verification"].append("Pass")
             ct+=1
@@ -117,10 +124,18 @@ def verify_parallel(input, output):
             for error in eval.get_errors(): 
                 errors += str(error) + "; "
             theorem["verification"].append("Fail: " + errors)
+        messages = eval.messages
+        time= 0
+        for message in messages:
+            if "[Elab.command]" in message.data and re.search(r"\[([0-9]+.[0-9]+)\]", message.data) != None:
+                time = float(re.findall(r"\[Elab\.command\] \[([0-9]+\.[0-9]+)\]", message.data)[0])
+                
+        if "verify_time" in theorem.keys():
+            theorem["verify_time"].append(time)
+        else:
+            theorem["verify_time"] = [time]
     with jsl.open(output, mode="w") as writer:
         writer.write_all(theorems)
-    
-    
 
 
 def check_accuracy(input):
@@ -155,16 +170,18 @@ def plot_time(input):
     gt = []
     vt = []
     for x in theorems:
-        #gt.append((x["input_tokens"])[-1])
-        vt.append((x["model_time"])[-1])
-    fig, ax = plt.subplots(1, sharex=True)
-    #ax[0].hist(gt)
-    ax.hist(vt)
+        gt.append((x["input_tokens"])[-1])
+        vt.append((x["output_tokens"])[-1])
+    fig, ax = plt.subplots(2)
+    ax[0].hist(gt)
+    ax[1].hist(vt)
     plt.show()   
     
 
 
 if __name__ == "__main__":
-    #plot_time("../data/mini_minif2f_gemini.jsonl")
-    verify_parallel("../data/sonnet-1.jsonl","../data/mini_minif2f_sonnet.jsonl")
-    #print(check_accuracy_all("../data/sonnet-1.jsonl"))
+    #verify_parallel("../data/minif2f_opus_amend.jsonl","../data/minif2f_opus_amend.jsonl")
+    #print(check_accuracy_all("../data/minif2f_opus_amend.jsonl"))
+    #plot_time("../data/minif2f_opus_amend.jsonl")
+    #print(check_accuracy_all("../data/mini_miniCTX_test.jsonl"))
+    pass
