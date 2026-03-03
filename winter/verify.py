@@ -96,7 +96,7 @@ def verify_parallel(input, output):
         print(e)
     
     try:
-        r_list = pool.run_batch(t_list, show_progress=True, timeout_per_cmd=60, )
+        r_list = pool.run_batch(t_list, show_progress=True, timeout_per_cmd=60)
         pool.close()
     except Exception as e:
         r_list =[]
@@ -111,7 +111,7 @@ def verify_parallel(input, output):
         if isinstance(eval, Exception):
             theorem["verification"].append("Unknown Error: LEAN Verification timed out")
             if "verify_time" in theorem.keys(): 
-                theorem["verify_time"] = theorem["verify_time"].append(-1)
+                theorem["verify_time"].append(-1)
             else:
                 theorem["verify_time"] = [-1]
             continue
@@ -170,18 +170,18 @@ def plot_time(input):
     gt = []
     vt = []
     for x in theorems:
-        #gt.append((x["input_tokens"])[-1])
-        vt.append((x["model_time"])[-1])
-    fig, ax = plt.subplots(1, sharex=True)
-    #ax[0].hist(gt)
-    ax.hist(vt)
+        gt.append((x["input_tokens"])[-1])
+        vt.append((x["output_tokens"])[-1])
+    fig, ax = plt.subplots(2)
+    ax[0].hist(gt)
+    ax[1].hist(vt)
     plt.show()   
     
 
 
 if __name__ == "__main__":
-    #print(check_accuracy_all("../data/sonnet-1.jsonl"))
-    #plot_time("../data/mini_minif2f_gemini.jsonl")
-    #verify_parallel("../data/mini_miniCTX_sonnet.jsonl","../data/mini_miniCTX_test.jsonl")
+    #verify_parallel("../data/minif2f_opus_amend.jsonl","../data/minif2f_opus_amend.jsonl")
+    #print(check_accuracy_all("../data/minif2f_opus_amend.jsonl"))
+    #plot_time("../data/minif2f_opus_amend.jsonl")
     #print(check_accuracy_all("../data/mini_miniCTX_test.jsonl"))
     pass
