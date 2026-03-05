@@ -51,7 +51,11 @@ def cleanup(response):
     try:  # try remove junk before the theorem statement
         largest = "theorem" + largest.split("theorem")[1]
     except:  # if this fails, then use the safer regex to try and recover
-        largest = "theorem" + get_max_match(response, BACKUP_REGEX)
+        res = get_max_match(response, BACKUP_REGEX)
+        if res:
+            largest = "theorem" + res
+        else:
+            largest = response
 
     return largest
 
