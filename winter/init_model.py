@@ -1,5 +1,6 @@
 from langchain.chat_models import init_chat_model, BaseChatModel
 from langchain_community.llms import VLLM
+import torch;
 
 _MODELS = {
   "sonnet": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
@@ -26,7 +27,7 @@ def init_model(model_name: str, temp: float) -> BaseChatModel:
         try:
             llm = VLLM(
                 model=model_id,
-                tensor_parallel_size=2,        # Number of GPUs
+                tensor_parallel_size=torch.cuda.device_count(),        # Number of GPUs
                 trust_remote_code=True,
                 download_dir="/gpfs/scrubbed/lean-bench/models/",
                 vllm_kwargs={
