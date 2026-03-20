@@ -239,4 +239,6 @@ __marimo__/
 /data/Initial Tests
 /data/Final Tests/*
 /data/fall
+/data/test_data
+data/*.png
 /models/*
