@@ -51,9 +51,9 @@ leanstral: mistralai:labs-leanstral-2603\
 nemotron: nvidia/nemotron-3-super-120b-a12b\
 qwen: Qwen/Qwen3.5-397B-A17B\
 deepseek: deepseek-ai/DeepSeek-V3.2\
-glm: zai-org/GLM-5\
-minimax: MiniMaxAI/MiniMax-M2.1\
-kimi: moonshotai/Kimi-K2-Thinking
+<!--glm: zai-org/GLM-5\-->
+<!--minimax: MiniMaxAI/MiniMax-M2.1\-->
+<!--kimi: moonshotai/Kimi-K2-Thinking-->
 
 ## Results
 
