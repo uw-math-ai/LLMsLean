@@ -2,7 +2,7 @@
 
 A [UW Math AI Lab](https://github.com/uw-math-ai) project.
 
-Within the past few years, the ability of large language models (LLMs) to generate formal mathematical proofs has improved drastically. We will provide a comparison of various LLMs' effectiveness in producing a successful proof in the Lean 4 theorem prover on both Mini-F2F and Mini-CTX datasets. Specifically, we will compare three general purpose LLMs: Gemini 3-pro, Chat GPT 5.2, Claude 4.5 Opus, and three specialized LLMs: Kimina-72B, Goedel-Prover-32B, Deepseek-Prover-V2-7B. We plan to test each models effectiveness at Pass@4, and multi turn proof generation with $k=4$. Finally, we will analyze the cost, the number of tokens and the latency time to provide the optimal model given the available resources of the users. 
+Within the past few years, the ability of Large Language Models (LLMs) to generate formal mathematical proofs has improved drastically. We provide a comparison of various LLMs' effectiveness in producing formal proofs in Lean 4 with the goal of assisting those seeking to use LLMs to support their own projects. We utilize both pass@$k$ and refine@$k$ metrics as the benchmark for our comparison and evaluate on subsets of both miniF2F and miniCTX datasets. Our testing shows that overall, Gemini 3.1 Pro and Claude Opus 4.7 perform best. Gemini 3.1 Pro achieved a 0.92 success rate on miniF2F via refine@32 whereas Opus 4.7 achieved a 0.86 success rate on miniCTX via refine@32. When taking cost into account, NVIDIA Nemotron 3 Super and GPT-OSS 120B were the most efficient, with competitive accuracies and average costs of <$0.01 per attempt.
 
 [Winter Quarter Poster](https://docs.google.com/presentation/d/1dIf4-OZg-ClmAyEdQqRi9oxUBDifUnVM1fhT3GzvC4A/edit?usp=sharing_)
 
@@ -52,10 +52,9 @@ nemotron: nvidia/nemotron-3-super-120b-a12b\
 qwen: Qwen/Qwen3.5-397B-A17B\
 deepseek: deepseek-ai/DeepSeek-V3.2\
 glm: zai-org/GLM-5\
-minimax: MiniMaxAI/MiniMax-M2.1\
-kimi: moonshotai/Kimi-K2-Thinking
+minimax: MiniMaxAI/MiniMax-M2.1
 
 ## Results
 
-![Alt text](minif2f_top4_results.png)
-
+![Alt text](minictx_top32_results.png)
+![Alt text](minif2f_top32_results.png)
