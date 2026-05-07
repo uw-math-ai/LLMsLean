@@ -47,7 +47,6 @@ gpt_nano: GPT-5.4-nano\
 gemini: Google Gemini 3-flash-preview\
 gemini_pro: Google Gemini 3.1-pro-preview\
 gemini_lite: Google Gemini 3.1-flash-lite-preview\
-qwen: qwen.qwen3-32b-v1:0\
 gpt_oss: openai/gpt-oss-120b\
 leanstral: mistralai:labs-leanstral-2603\
 nemotron: nvidia/nemotron-3-super-120b-a12b\
