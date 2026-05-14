@@ -41,7 +41,7 @@ All relevant files are intended to be run from ```/winter```
 
 sonnet: Claude Sonnet 4.5\
 opus: Claude Opus 4.5\
-gpt: GPT 5.1\
+gpt: GPT 5.4\
 gpt_mini: GPT-5.4-mini\
 gpt_nano: GPT-5.4-nano\
 gemini: Google Gemini 3-flash-preview\
