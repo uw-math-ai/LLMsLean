@@ -1,10 +1,8 @@
 # Testing Large Language Models’ Autoformalization Capabilities in LEAN
 
-<!--A [UW Math AI Lab](https://github.com/uw-math-ai) project.-->
 
 Within the past few years, the ability of Large Language Models (LLMs) to generate formal mathematical proofs has improved drastically. We provide a comparison of various LLMs' effectiveness in producing formal proofs in Lean 4 with the goal of assisting those seeking to use LLMs to support their own projects. We utilize both pass@k and refine@k metrics as the benchmark for our comparison and evaluate on subsets of both miniF2F and miniCTX datasets. Our testing shows that overall, Gemini 3.1 Pro and Claude Opus 4.7 perform best. Gemini 3.1 Pro achieved a 0.92 success rate on miniF2F via refine@32 whereas Opus 4.7 achieved a 0.86 success rate on miniCTX via refine@32. When taking cost into account, NVIDIA Nemotron 3 Super and GPT-OSS 120B were the most efficient, with competitive accuracies and average costs of <$0.01 correct proof.
 
-[Poster](https://docs.google.com/presentation/d/1QjuQAN2iE8epjt6qFApMjERVtGDmqrhbm6WKhcMRaqU/edit?usp=sharing)
 
 ## Instructions
 
